@@ -1,0 +1,49 @@
+<% include partials/header %>
+<div class="bg-light"><div class="container">
+    <div class="card-body">
+      <form action="" class="p-5">
+      <div class="row justify-content-center">
+        <div class="col-md-7">
+          <div class="input-group">
+            <input type="text" class="form-control form-control-lg" placeholder="Find a song..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary btn-lg dropdown-toggle" style="border-radius: 0;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Song title</button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Song title</a>
+                <a class="dropdown-item" href="#">Songwriter</a>
+                <a class="dropdown-item" href="#">Artist</a>
+                <!-- <div role="separator" class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a> -->
+              </div>
+              <button class="btn btn-primary btn-lg" type="button"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div><div class="container-fluid bg-dark">
+  <div class="row no-gutters align-items-center">
+    <div class="col-sm">
+      <div class="bg-dark text-white text-center p-5" style="background: url(https://images.unsplash.com/photo-1487089427585-85563b1049f3?auto=format&fit=crop&w=2690&q=80); background-size: cover;">
+        <div class="card-body">
+          <h2 class="card-title display-4">Inspiration</h2>
+          <p class="card-text">See what songs others are singing, create and share a worship set</p>
+          <a href="#" class="btn btn-lg btn-outline-light"><i class="fa fa-share"></i>&nbsp;&nbsp;Share</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="bg-dark text-white text-center p-5" style="background: url(https://images.unsplash.com/photo-1509170051686-83f8efd35a31?auto=format&fit=crop&w=2250&q=80); background-size: cover;">
+        <div class="card-body">
+          <h2 class="card-title display-4">All songs</h2>
+          <p class="card-text">Find information about songs others have shared, or add your own</p>
+          <a href="/songs/" class="btn btn-lg btn-outline-light"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

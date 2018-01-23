@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Worship Database Project</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,700&amp;subset=latin-ext" rel="stylesheet">
+  <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="/">Worship Database Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/songs/">Songs</a>
+        </li>
+        <% if(!currentUser){ %>
+        <li class="nav-item active">
+          <a class="nav-link" href="/login">Log in</a>
+        </li>
+        <li class="nav-item active">
+          <a class="btn btn-outline-success m-0" href="/register">Sign up</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item active">
+          <a class="nav-link" href="/logout">Log out</a>
+        </li>
+        <li class="nav-item active">
+          <%= currentUser.name.givenName %> <i class="fa fa-2x fa-user-circle"></i>
+        </li>
+
+        <% } %>
+
+
+
+      </ul>
+    </div>
+  </nav>
+</header>

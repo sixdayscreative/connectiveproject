@@ -1,0 +1,57 @@
+body{
+  font-family: 'Rubik', sans-serif;
+  color: #707070;
+}
+.btn-primary{
+  background-color: #FF9900;
+  border-color: #F90;
+}
+.btn-primary:hover{
+  background-color: #E07320;
+  border-color: #E07320;
+}
+.navbar-brand{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.875em;
+}
+
+.song-title{
+  font-weight: 400;
+  font-size: 1.75em;
+}
+.song-author{
+  text-transform: uppercase;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+.song-actions .btn {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  border-radius: 0;
+  opacity: 0.75;
+}
+.song-actions .btn .text{
+  font-size: 0.65em;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: block;
+}
+
+.song-list a{
+
+}
+.song-list ul{
+  padding: 0;
+}
+.song-list li{
+  list-style-type: none;
+}
+.song-list a{
+  color: #444;
+}
+
+.form-control-outline, .form-control-outline:focus{
+  background: none;
+  color: #fff;
+}

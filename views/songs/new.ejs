@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <h1>Add a new song</h1>
+
+  <form action="/songs" method="POST">
+  <div class="form-group">
+    <input class="form-control" type="text" name="title" placeholder="Song title">
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" name="author" placeholder="Artist/Author">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary">Add song</button>
+  </div>
+  </form>
+</div>
+
+<% include ../partials/footer %>

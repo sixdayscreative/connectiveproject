@@ -1,0 +1,156 @@
+<% include ../partials/header %>
+<div class="border border-top border-light">
+  <div class="col py-1 bg-light">
+    <a href="/songs/" class="text-dark"><i class="fa fa-arrow-left"></i> Back to songs</a>
+  </div>
+</div>
+
+  <main class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <header class="song-header my-4">
+          <h1 class="song-title"><%= song.title %></h1>
+          <h2 class="song-author"><%= song.author %></h2>
+        </header>
+        <div class="row">
+          <div class="col-md-2 song-actions">
+            <a href="#" class="btn btn-block btn-outline-secondary btn-sm">
+              <i class="fa fa-play fa-2x"></i>
+              <span class="text">Slideshow</span>
+            </a>
+            <a class="btn btn-outline-secondary btn-block btn-sm" href="/songs/<%= song.id %>/edit">
+              <i class="fa fa-edit fa-2x"></i>
+              <span class="text">Edit</span>
+            </a>
+            <form action="/songs/<%= song.id %>/?_method=DELETE" method="POST" class="mt-2">
+              <button class="btn btn-block btn-outline-secondary btn-sm"><i class="fa fa-2x fa-trash"></i><span class="text">Delete</span></button>
+            </form>
+          </div>
+          <div class="col-md-10 text-center">
+            <div class="song-lyrics">
+              <h4>Lyrics</h4>
+              <% if(song.lyrics){%>
+              <div>
+                <p><%= song.lyrics %></p>
+              </div>
+              <% } else { %>
+              <a href="/songs/<%= song._id %>/edit" class="btn btn-primary add">Add lyrics</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="song-media">
+          <h5>Media</h5>
+          <% if(song.source){ %>
+            <a class="btn btn-success btn-outline-secondary btn-block" href="<%= song.source %>" target="_blank"><i class="fa fa-youtube-play fa-2x"></i><br>Listen on Youtube</a>
+          <% } else { %>
+            <a href="#" class="btn btn-info">Add media for this song</a>
+          <% } %>
+        </div>
+        <div class="song-contributors">
+          <h5>Contributors</h5>
+          <% song.contributors.forEach(function(contributor){%>
+          <%= contributor.displayName %>
+          <% }) %>
+        </div>
+        <div class="song-themes">
+          <h4>Themes</h4>
+          <%= song.theme %>
+        </div>
+        <div class="song-mood">
+          <h4>Mood</h4>
+          <% song.mood.forEach(function(mood){%>
+          <%= mood %>
+          <% }) %>
+        </div>
+        <div class="song-ratings">
+          <h4>Ratings</h4>
+          <div class="row no-gutters">
+            <div class="col-6 text-center">
+              <div class="card rounded-0">
+                <div class="card-body">
+                  <strong class="display-4"><%= song.simplicityRating %></strong>
+                  <h6>Simple</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 text-center">
+              <div class="card rounded-0">
+                <div class="card-body">
+                  <strong class="display-4"><%= song.simplicityRating %></strong>
+                  <h6>Doctrinal</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 text-center">
+              <div class="card rounded-0">
+                <div class="card-body">
+                  <strong class="display-4"><%= song.simplicityRating %></strong>
+                  <h6>Worship</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 text-center">
+              <div class="card rounded-0">
+                <div class="card-body">
+                  <strong class="display-4"><%= song.simplicityRating %></strong>
+                  <h6>Modern</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comments">
+          <ul class="list-group">
+            <li class="list-group-item"><h5 class="mb-0">Comments</h5></li>
+          <% if(song.comments.length){ %>
+          <% song.comments.forEach(function(comment){ %>
+            <li id="<%= comment._id %>" class="list-group-item comment">
+              <div class="comment-body">
+                <p><strong><%= comment.author.displayName %></strong></p>
+                <p><%= comment.text %></p>
+              </div>
+              <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+              <div class="options">
+                <a class="btn btn-link" href="/songs/<%= song._id %>/comments/<%= comment._id %>/edit"><i class="fa fa-edit"></i></a>
+                <form action="/songs/<%= song._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                  <button class="btn btn-link"><i class="fa fa-trash"></i></button>
+                </form>
+              </div>
+              <% } %>
+            </li>
+          <% }); %>
+          <% } else { %>
+            <li class="list-group-item no-comments">
+              <p class="mb-0">There are no comments for this song</p>
+            </li>
+            <hr>
+          <% } %>
+          </ul>
+
+          <% if(currentUser){ %>
+          <form action="/songs/<%= song._id %>/comments" method="POST">
+          <!-- <div class="form-group">
+            <input class="form-control" type="text" name="comment[author]" placeholder="Name">
+          </div> -->
+
+            Posting a comment as <a href="#"><%= currentUser.name.givenName + " " + currentUser.name.familyName %></a> - Not you? <a href="/logout">Log out</a>
+            <div class="form-group">
+              <textarea class="form-control" name="comment[text]" cols="30" rows="5" placeholder="Your Comment"></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">Add Comment</button>
+            </div>
+          </form>
+          <% } else { %>
+            <p>Sign in to add a comment</p>
+            <a href="/login">Sign in</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<% include ../partials/footer %>
