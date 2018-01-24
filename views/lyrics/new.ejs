@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+<div class="container" id="form">
+  <h1>Add lyrics to &lsquo;<%= song.title %>&rsquo;</h1>
+
+  <form action="/songs/<%= song._id %>/songlyrics" method="POST">
+    <div id="lyrics">
+      <div class="form-group">
+        <button class="btn btn-primary">Save Lyrics</button>
+      </div>
+    </div>
+  </form>
+  <button class="verse_add btn text-secondary" data-vstype="Verse" name="button">
+    <i class="fa fa-2x fa-plus icon-block"></i>
+    Add Verse
+  </button>
+  <button class="verse_add btn text-secondary" data-vstype="Chorus" name="button">
+    <i class="fa fa-2x fa-plus icon-block"></i>
+    Add Chorus
+  </button>
+  <button class="verse_add btn text-secondary" data-vstype="Bridge" name="button">
+    <i class="fa fa-2x fa-plus icon-block"></i>
+    Add Bridge
+  </button>
+  <a href="/songs/<%= song.id %>">Skip</a>
+</div>
+
+<% include ../partials/footer %>

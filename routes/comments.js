@@ -46,7 +46,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
       console.log(err);
     } else {
       res.render("comments/edit", {song_id: req.params.id, comment: foundComment});
-      
+
     }
   });
 });

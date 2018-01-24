@@ -14,27 +14,38 @@
         </header>
         <div class="row">
           <div class="col-md-2 song-actions">
-            <a href="#" class="btn btn-block btn-outline-secondary btn-sm">
+            <a href="#" class="btn btn-block btn-link btn-sm text-dark">
               <i class="fa fa-play fa-2x"></i>
               <span class="text">Slideshow</span>
             </a>
-            <a class="btn btn-outline-secondary btn-block btn-sm" href="/songs/<%= song.id %>/edit">
+            <a class="btn btn-block btn-link btn-sm text-dark" href="/songs/<%= song.id %>/songlyrics/edit">
               <i class="fa fa-edit fa-2x"></i>
               <span class="text">Edit</span>
             </a>
             <form action="/songs/<%= song.id %>/?_method=DELETE" method="POST" class="mt-2">
-              <button class="btn btn-block btn-outline-secondary btn-sm"><i class="fa fa-2x fa-trash"></i><span class="text">Delete</span></button>
+              <button class="btn btn-block btn-link btn-sm text-dark"><i class="fa fa-2x fa-trash"></i><span class="text">Delete</span></button>
             </form>
           </div>
           <div class="col-md-10 text-center">
             <div class="song-lyrics">
               <h4>Lyrics</h4>
-              <% if(song.lyrics){%>
-              <div>
-                <p><%= song.lyrics %></p>
-              </div>
+              <% if(song.lyrics.length){%>
+
+                <% song.lyrics.forEach(function(lyric){ %>
+
+                  <% var lines = lyric.text.match(/^.*((\r\n|\n|\r)|$)/gm); %>
+                  <p>
+                    <em><%= lyric.order %>.</em>
+                    <em><%= lyric.verseType %></em>
+                  </p>
+                  <p><% lines.forEach(function(line){ %>
+                      <span class="song-line"><%= line %></span><br>
+                    <% }) %></p>
+
+
+                <% }) %>
               <% } else { %>
-              <a href="/songs/<%= song._id %>/edit" class="btn btn-primary add">Add lyrics</a>
+              <a href="/songs/<%= song._id %>/songlyrics/add" class="btn btn-primary add">Add lyrics</a>
               <% } %>
             </div>
           </div>

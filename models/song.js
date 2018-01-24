@@ -15,20 +15,18 @@ let songSchema = new mongoose.Schema({
       displayName: String
     }
   ],
-  lyrics: [
-    {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Lyrics"
-      },
-    }
-  ],
   source: String,
   simplicityRating: String,
   worshipRating: String,
   doctrineRating: String,
   mood: Array,
   theme: String,
+  lyrics: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Lyrics"
+    }
+  ],
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,

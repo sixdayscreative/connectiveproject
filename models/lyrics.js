@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
-const lyricSchema = mongoose.Schema({
+const lyricsSchema = mongoose.Schema({
+  verseType: String,
   text: String,
-  sectionType: String,
+  order: Number,
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -11,4 +12,4 @@ const lyricSchema = mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Lyric", commentSchema);
+module.exports = mongoose.model("Lyrics", lyricsSchema);

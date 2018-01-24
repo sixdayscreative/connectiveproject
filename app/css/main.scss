@@ -38,6 +38,18 @@ body{
   display: block;
 }
 
+.song-lyrics textarea{
+  resize: none;
+  height: auto;
+  border: 0;
+  border-bottom: 2px dashed #999;
+}
+
+.verse_add{
+  background: none;
+  text-transform: uppercase;
+}
+
 .song-list a{
 
 }
@@ -54,4 +66,8 @@ body{
 .form-control-outline, .form-control-outline:focus{
   background: none;
   color: #fff;
+}
+
+.icon-block{
+  display: block;
 }

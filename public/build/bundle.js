@@ -78,8 +78,47 @@ module.exports = __webpack_require__(1);
 
 
 __webpack_require__(2);
-var hello = "Hello dude";
-console.log(hello);
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  var lyricButtons = document.querySelectorAll(".verse_add");
+
+  var verseCount = 0;
+
+  lyricButtons.forEach(function (button, i) {
+    button.addEventListener("click", function () {
+      addVerse(button.dataset.vstype);
+    });
+  });
+
+  function addVerse(verseType) {
+    var lyricMarkup = "\n        <div id=\"verse_type_select\">\n          <input type=\"radio\" value=\"Verse\" id=\"verse" + verseCount + "\" name=\"lyrics" + verseCount + "[verseType]\" " + isVerseType("Verse", verseType) + ">\n          <label for=\"verse" + verseCount + "\">Verse</label>\n          <input type=\"radio\" value=\"Chorus\" id=\"chorus" + verseCount + "\" name=\"lyrics" + verseCount + "[verseType]\" " + isVerseType("Chorus", verseType) + ">\n          <label for=\"chorus" + verseCount + "\">Chorus</label>\n          <input type=\"radio\" value=\"Bridge\" id=\"bridge" + verseCount + "\" name=\"lyrics" + verseCount + "[verseType]\" " + isVerseType("Bridge", verseType) + ">\n          <label for=\"bridge" + verseCount + "\">Bridge</label>\n        </div>\n        <span class=\"delete\">&times;</span>\n        <textarea class=\"form-control\" name=\"lyrics" + verseCount + "[verseText]\" cols=\"30\" rows=\"10\" placeholder=\"Insert lyrics here...\"></textarea>\n      ";
+    var newNode = document.createElement("DIV");
+    newNode.classList.add("form-group");
+
+    newNode.innerHTML = lyricMarkup;
+    document.getElementById("lyrics").appendChild(newNode);
+
+    verseCount++;
+
+    var deleteButtons = document.querySelectorAll(".delete");
+
+    deleteButtons.forEach(function (button, i) {
+      button.addEventListener("click", function () {
+        var unwantedVerse = button.parentNode;
+        deleteVerse(unwantedVerse, i);
+      });
+    });
+  }
+  function isVerseType(str, vt) {
+    if (str === vt) {
+      return "checked='true'";
+    }
+  }
+  function deleteVerse(verse, index) {
+    verse.remove();
+  }
+});
 
 /***/ }),
 /* 2 */
@@ -121,7 +160,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "body {\n  font-family: 'Rubik', sans-serif;\n  color: #707070; }\n\n.btn-primary {\n  background-color: #FF9900;\n  border-color: #F90; }\n\n.btn-primary:hover {\n  background-color: #E07320;\n  border-color: #E07320; }\n\n.navbar-brand {\n  text-transform: uppercase;\n  font-weight: bold;\n  font-size: 0.875em; }\n\n.song-title {\n  font-weight: 400;\n  font-size: 1.75em; }\n\n.song-author {\n  text-transform: uppercase;\n  font-size: 0.875em;\n  font-weight: 500; }\n\n.song-actions .btn {\n  padding-left: 0.25em;\n  padding-right: 0.25em;\n  border-radius: 0;\n  opacity: 0.75; }\n\n.song-actions .btn .text {\n  font-size: 0.65em;\n  font-weight: 500;\n  text-transform: uppercase;\n  display: block; }\n\n.song-list ul {\n  padding: 0; }\n\n.song-list li {\n  list-style-type: none; }\n\n.song-list a {\n  color: #444; }\n\n.form-control-outline, .form-control-outline:focus {\n  background: none;\n  color: #fff; }\n", ""]);
+exports.push([module.i, "body {\n  font-family: 'Rubik', sans-serif;\n  color: #707070; }\n\n.btn-primary {\n  background-color: #FF9900;\n  border-color: #F90; }\n\n.btn-primary:hover {\n  background-color: #E07320;\n  border-color: #E07320; }\n\n.navbar-brand {\n  text-transform: uppercase;\n  font-weight: bold;\n  font-size: 0.875em; }\n\n.song-title {\n  font-weight: 400;\n  font-size: 1.75em; }\n\n.song-author {\n  text-transform: uppercase;\n  font-size: 0.875em;\n  font-weight: 500; }\n\n.song-actions .btn {\n  padding-left: 0.25em;\n  padding-right: 0.25em;\n  border-radius: 0;\n  opacity: 0.75; }\n\n.song-actions .btn .text {\n  font-size: 0.65em;\n  font-weight: 500;\n  text-transform: uppercase;\n  display: block; }\n\n.song-lyrics textarea {\n  resize: none;\n  height: auto;\n  border: 0;\n  border-bottom: 2px dashed #999; }\n\n.verse_add {\n  background: none;\n  text-transform: uppercase; }\n\n.song-list ul {\n  padding: 0; }\n\n.song-list li {\n  list-style-type: none; }\n\n.song-list a {\n  color: #444; }\n\n.form-control-outline, .form-control-outline:focus {\n  background: none;\n  color: #fff; }\n\n.icon-block {\n  display: block; }\n", ""]);
 
 // exports
 

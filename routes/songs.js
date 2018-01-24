@@ -32,7 +32,6 @@ router.post("/", function(req, res){
       newSong = {
         title: title,
         author: author,
-        lyrics: []
       };
 
       console.log(req.body.lyrics);
@@ -59,7 +58,7 @@ router.post("/", function(req, res){
 
 //SONG SHOW =================
 router.get("/:id", function(req, res){
-  Song.findById(req.params.id).populate("comments").exec(function(err, foundSong){
+  Song.findById(req.params.id).populate("comments").populate("lyrics").exec(function(err, foundSong){
     if(err){
       console.log(err);
     } else {
