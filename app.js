@@ -18,8 +18,10 @@ const commentRoutes = require('./routes/comments'),
       indexRoutes = require('./routes/index'),
       lyricsRoutes = require('./routes/lyrics');
 
-//mongoose.connect("mongodb://localhost/worshipdatabase", { useMongoClient: true});
-mongoose.connect("mongodb://houston:sixdays@ds115198.mlab.com:15198/worshipdatabase", {useMongoClient: true});
+
+mongoose.connect(process.env.DATABASEURL, { useMongoClient: true});
+
+
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended: true}));
