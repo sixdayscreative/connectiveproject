@@ -627,7 +627,7 @@ let songList = [
       worshipRating: 4,
       simplicityRating: 2,
       doctrineRating: "4*",
-      mood: "Stirirng, Traditional",
+      mood: "Stirirng",
       source: "",
       author: "Keith Getty & Stuart Townend",
       "Date": ""
@@ -1074,39 +1074,18 @@ function seedDB(){
 
       //add new songs
       songList.forEach(function(song){
+        song.worshipRating = Number(song.worshipRating);
+        song.simplicityRating = Number(song.simplicityRating);
+        song.doctrineRating = Number(song.doctrineRating);
+        song.theme = [song.theme];
+        song.mood = [song.mood];
+        console.log(song);
         Song.create(song, function(err, song){
           if(err){
             console.log(err);
           } else {
             console.log("Songs added to database!");
-            //add new Comment
-            // Comment.create({
-            //   text: "I love this song!",
-            //   author: "Adam"
-            // }, function(err, comment){
-            //   if(err){
-            //     console.log(err);
-            //   } else {
-            //     song.comments.push(comment);
-            //     song.save();
-            //     console.log("Comment added to " + song.title);
-            //   }
-            // });
-            // Comment.create({
-            //   text: "I love this song too Adam!",
-            //   author: "Eve"
-            // }, function(err, comment){
-            //   if(err){
-            //     console.log(err);
-            //   } else {
-            //     song.comments.push(comment);
-            //     song.save();
-            //     console.log("Comment added to " + song.title);
-            //   }
-            // });
           }
-
-
         });
       });
 

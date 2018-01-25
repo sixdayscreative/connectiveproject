@@ -14,7 +14,7 @@
         </header>
         <div class="row">
           <div class="col-md-2 song-actions">
-            <a href="#" class="btn btn-block btn-link btn-sm text-dark">
+            <a href="/songs/<%= song._id %>/present" class="btn btn-block btn-link btn-sm text-dark">
               <i class="fa fa-play fa-2x"></i>
               <span class="text">Slideshow</span>
             </a>
@@ -35,7 +35,6 @@
 
                   <% var lines = lyric.text.match(/^.*((\r\n|\n|\r)|$)/gm); %>
                   <p>
-                    <em><%= lyric.order %>.</em>
                     <em><%= lyric.verseType %></em>
                   </p>
                   <p><% lines.forEach(function(line){ %>
@@ -63,18 +62,39 @@
         <div class="song-contributors">
           <h5>Contributors</h5>
           <% song.contributors.forEach(function(contributor){%>
-          <%= contributor.displayName %>
+            <%= contributor.displayName %>
           <% }) %>
         </div>
         <div class="song-themes">
           <h4>Themes</h4>
-          <%= song.theme %>
+
+          <% if(song.theme){ %>
+            <% song.theme.forEach(function(theme){%>
+              <%= song.theme %>
+            <% }) %>
+          <% } else {%>
+            <form action="">
+              <div class="form-group">
+                <label for="song_mood">What themes does this song explore?</label>
+                <input class="form-control" type="text" name="song[mood]" placeholder="(e.g. Heaven)">
+              </div>
+            </form>
+          <% } %>
         </div>
         <div class="song-mood">
           <h4>Mood</h4>
-          <% song.mood.forEach(function(mood){%>
-          <%= mood %>
-          <% }) %>
+          <% if(song.mood){ %>
+            <% song.mood.forEach(function(mood){%>
+            <%= mood %>
+            <% }) %>
+          <% } else {%>
+            <form action="">
+              <div class="form-group">
+                <label for="song_mood">What type of mood does this song set?</label>
+                <input class="form-control" type="text" name="song[mood]" placeholder="(e.g. Relaxed)">
+              </div>
+            </form>
+          <% } %>
         </div>
         <div class="song-ratings">
           <h4>Ratings</h4>
@@ -90,7 +110,7 @@
             <div class="col-6 text-center">
               <div class="card rounded-0">
                 <div class="card-body">
-                  <strong class="display-4"><%= song.simplicityRating %></strong>
+                  <strong class="display-4"><%= song.doctrineRating %></strong>
                   <h6>Doctrinal</h6>
                 </div>
               </div>
@@ -98,7 +118,7 @@
             <div class="col-6 text-center">
               <div class="card rounded-0">
                 <div class="card-body">
-                  <strong class="display-4"><%= song.simplicityRating %></strong>
+                  <strong class="display-4"><%= song.worshipRating %></strong>
                   <h6>Worship</h6>
                 </div>
               </div>
@@ -147,13 +167,7 @@
             <input class="form-control" type="text" name="comment[author]" placeholder="Name">
           </div> -->
 
-            Posting a comment as <a href="#"><%= currentUser.name.givenName + " " + currentUser.name.familyName %></a> - Not you? <a href="/logout">Log out</a>
-            <div class="form-group">
-              <textarea class="form-control" name="comment[text]" cols="30" rows="5" placeholder="Your Comment"></textarea>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-primary">Add Comment</button>
-            </div>
+          <% include ../partials/comment %>
           </form>
           <% } else { %>
             <p>Sign in to add a comment</p>

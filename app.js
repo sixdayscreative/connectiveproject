@@ -15,7 +15,7 @@ const express = require('express'),
 
 const commentRoutes = require('./routes/comments'),
       songRoutes = require('./routes/songs'),
-      indexRoutes = require('./routes/index');
+      indexRoutes = require('./routes/index'),
       lyricsRoutes = require('./routes/lyrics');
 
 mongoose.connect("mongodb://localhost/worshipdatabase", { useMongoClient: true});

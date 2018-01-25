@@ -1,9 +1,7 @@
 require('./css/main.scss');
-
-
+const autosize = require('autosize');
 
 document.addEventListener("DOMContentLoaded",function(){
-
 
   let lyricButtons = document.querySelectorAll(".verse_add");
 
@@ -17,7 +15,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   function addVerse(verseType){
     let lyricMarkup = `
-        <div id="verse_type_select">
+        <div id="verse_type_select" class="verse-type-select">
           <input type="radio" value="Verse" id="verse${verseCount}" name="lyrics${verseCount}[verseType]" ${isVerseType("Verse", verseType)}>
           <label for="verse${verseCount}">Verse</label>
           <input type="radio" value="Chorus" id="chorus${verseCount}" name="lyrics${verseCount}[verseType]" ${isVerseType("Chorus", verseType)}>
@@ -25,19 +23,20 @@ document.addEventListener("DOMContentLoaded",function(){
           <input type="radio" value="Bridge" id="bridge${verseCount}" name="lyrics${verseCount}[verseType]" ${isVerseType("Bridge", verseType)}>
           <label for="bridge${verseCount}">Bridge</label>
         </div>
-        <span class="delete">&times;</span>
-        <textarea class="form-control" name="lyrics${verseCount}[verseText]" cols="30" rows="10" placeholder="Insert lyrics here..."></textarea>
+        <div class="delete_verse"><i class="fa fa-trash"></i> <span>Delete</span></div>
+        <textarea class="form-control text-center" name="lyrics${verseCount}[verseText]" rows="1" placeholder="Enter lyrics here..."></textarea>
       `;
       let newNode = document.createElement("DIV");
       newNode.classList.add("form-group");
 
     newNode.innerHTML = lyricMarkup;
     document.getElementById("lyrics").appendChild(newNode)
+    autosize(document.querySelectorAll('#lyrics textarea'));
 
     verseCount++
 
 
-    let deleteButtons = document.querySelectorAll(".delete");
+    let deleteButtons = document.querySelectorAll(".delete_verse");
 
     deleteButtons.forEach((button, i) => {
       button.addEventListener("click", () => {
@@ -56,8 +55,59 @@ document.addEventListener("DOMContentLoaded",function(){
     verse.remove();
   }
 
+  autosize(document.querySelectorAll('#lyrics textarea'));
+
+  function slideShowNav(){
+
+    let slides = document.querySelector(".slides");
+
+    window.addEventListener("keydown", function(e){
+      switch(e.which){
+        case 39:
+          nextSlide();
+          break;
+        case 37:
+          prevSlide();
+      }
+      console.log(e);
+    });
+
+    slides.addEventListener("click", function(){
+      nextSlide();
+    });
+
+    function prevSlide(){
+      let activeSlide = "";
+
+      activeSlide = slides.querySelector(".active");
+      if(activeSlide){
+        if(activeSlide.previousElementSibling){
+          activeSlide.previousElementSibling.classList.add("active");
+          activeSlide.classList.remove("active");
+        }
+      } else {
+        slides.querySelector(".slide:last-child").classList.add("active");
+      }
+    }
+
+    function nextSlide(){
+      let activeSlide = "";
+
+      activeSlide = slides.querySelector(".active");
+      if(activeSlide){
+        if(activeSlide.nextElementSibling){
+          activeSlide.nextElementSibling.classList.add("active");
+          activeSlide.classList.remove("active");
+        } else {
+          activeSlide.classList.remove("active");
+        }
+      } else {
+        slides.querySelector(".slide").classList.add("active");
+      }
+    }
+  }
 
 
 
-
+  slideShowNav();
 });

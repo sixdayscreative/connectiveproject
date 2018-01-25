@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 <div class="border border-top border-light">
   <div class="col py-1 bg-light">
-    <a href="/songs/" class="text-dark"><i class="fa fa-arrow-left"></i> Back to songs</a>
+    <a href="/songs/<%=song.id%>" class="text-dark"><i class="fa fa-arrow-left"></i> Cancel edit</a>
   </div>
 </div>
 
@@ -15,26 +15,46 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <div class="song-lyrics">
-              <h4>Lyrics</h4>
-              <% song.lyrics.forEach(function(verse){
-                var isVerseType = function(a, b){
-                  if(a === b){
-                    return "checked='true'";
+              <h3 class="title">Lyrics</h3>
+              <form action="/songs/<%= song._id %>/songlyrics/edit" method="POST">
+                <button class="btn btn-link"><i class="fa fa-2x fa-check-circle-o icon-block"></i>Save Lyrics</button>
+              <div id="lyrics">
+                <% song.lyrics.forEach(function(verse){
+                  var isVerseType = function(a, b){
+                    if(a === b){
+                      return "checked='true'";
+                    }
                   }
-                }
-                %>
-                <div id="verse_type_select">
-                  <input type="radio" value="Verse" id="verse<%= verse.id %>" name="<%= verse.id %>[verseType]" <%= isVerseType("Verse", verse.verseType) %>>
-                  <label for="verse<%= verse.id %>">Verse</label>
-                  <input type="radio" value="Chorus" id="chorus<%= verse.id %>" name="<%= verse.id %>[verseType]" <%= isVerseType("Chorus", verse.verseType) %>>
-                  <label for="chorus<%= verse.id %>">Chorus</label>
-                  <input type="radio" value="Bridge" id="bridge<%= verse.id %>" name="<%= verse.id %>[verseType]" <%= isVerseType("Bridge", verse.verseType) %>>
-                  <label for="bridge<%= verse.id %>">Bridge</label>
-                </div>
-                <textarea class="form-control text-center" name="" id="" cols="30" rows="6">
-                  <%= verse.text %>
-                </textarea>
-              <% }) %>
+                  %>
+                  <div class="form-group">
+                    <div id="verse_type_select" class="verse-type-select">
+                      <input type="radio" value="Verse" id="verse<%= verse.id %>" name="<%= verse.id %>[verseType]" <%= isVerseType("Verse", verse.verseType) %>>
+                      <label for="verse<%= verse.id %>">Verse</label>
+                      <input type="radio" value="Chorus" id="chorus<%= verse.id %>" name="<%= verse.id %>[verseType]" <%= isVerseType("Chorus", verse.verseType) %>>
+                      <label for="chorus<%= verse.id %>">Chorus</label>
+                      <input type="radio" value="Bridge" id="bridge<%= verse.id %>" name="<%= verse.id %>[verseType]" <%= isVerseType("Bridge", verse.verseType) %>>
+                      <label for="bridge<%= verse.id %>">Bridge</label>
+                    </div>
+                    <div class="delete_verse"><i class="fa fa-trash"></i> <span>Delete</span></div>
+                    <textarea class="form-control text-center" name="<%= verse.id %>[verseText]" cols="30" rows="3"><%= verse.text %></textarea>
+                  </div>
+                <% }) %>
+              </div>
+            </form>
+            <div class="add-lyrics-btn-group">
+              <button class="verse_add btn text-secondary" data-vstype="Verse" name="button">
+                <i class="fa fa-2x fa-plus icon-block"></i>
+                Add Verse
+              </button>
+              <button class="verse_add btn text-secondary" data-vstype="Chorus" name="button">
+                <i class="fa fa-2x fa-plus icon-block"></i>
+                Add Chorus
+              </button>
+              <button class="verse_add btn text-secondary" data-vstype="Bridge" name="button">
+                <i class="fa fa-2x fa-plus icon-block"></i>
+                Add Bridge
+              </button>
+            </div>
             </div>
           </div>
         </div>
@@ -88,14 +108,6 @@
                 <div class="card-body">
                   <strong class="display-4"><%= song.simplicityRating %></strong>
                   <h6>Worship</h6>
-                </div>
-              </div>
-            </div>
-            <div class="col-6 text-center">
-              <div class="card rounded-0">
-                <div class="card-body">
-                  <strong class="display-4"><%= song.simplicityRating %></strong>
-                  <h6>Modern</h6>
                 </div>
               </div>
             </div>

@@ -16,11 +16,11 @@ let songSchema = new mongoose.Schema({
     }
   ],
   source: String,
-  simplicityRating: String,
-  worshipRating: String,
-  doctrineRating: String,
+  simplicityRating: Number,
+  worshipRating: Number,
+  doctrineRating: Number,
   mood: Array,
-  theme: String,
+  theme: Array,
   lyrics: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -1,0 +1,13 @@
+<form action="/songs/<%= song._id %>/comments" method="POST">
+<!-- <div class="form-group">
+  <input class="form-control" type="text" name="comment[author]" placeholder="Name">
+</div> -->
+Posting a comment as <a href="#"><%= currentUser.username %></a> - Not you? <a href="/logout">Log out</a>
+<div class="form-group">
+  <textarea class="form-control" name="comment[text]" cols="30" rows="10" placeholder="Your Comment"></textarea>
+</div>
+<div class="form-group">
+  <button class="btn btn-primary">Add Comment</button>
+</div>
+</form>
+</div>

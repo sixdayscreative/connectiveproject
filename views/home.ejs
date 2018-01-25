@@ -1,7 +1,7 @@
 <% include partials/header %>
 <div class="bg-light"><div class="container">
     <div class="card-body">
-      <form action="" class="p-5">
+      <form action="" class="py-3">
       <div class="row justify-content-center">
         <div class="col-md-7">
           <div class="input-group">
@@ -23,27 +23,42 @@
       </form>
     </div>
   </div>
-  </div><div class="container-fluid bg-dark">
+</div>
+<div class="bg-dark home">
   <div class="row no-gutters align-items-center">
     <div class="col-sm">
-      <div class="bg-dark text-white text-center p-5" style="background: url(https://images.unsplash.com/photo-1487089427585-85563b1049f3?auto=format&fit=crop&w=2690&q=80); background-size: cover;">
+      <div class="bg-dark text-white text-center p-5 bg-image" style="background-image: url(https://images.unsplash.com/photo-1509170051686-83f8efd35a31?auto=format&fit=crop&w=2250&q=80);">
         <div class="card-body">
-          <h2 class="card-title display-4">Inspiration</h2>
-          <p class="card-text">See what songs others are singing, create and share a worship set</p>
-          <a href="#" class="btn btn-lg btn-outline-light"><i class="fa fa-share"></i>&nbsp;&nbsp;Share</a>
+          <h2 class="card-title display-4">All songs</h2>
+          <p class="card-text">Find information about songs others have shared, or add your own</p>
+          <a href="/songs/" class="btn btn-lg btn-light"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</a>
         </div>
       </div>
     </div>
     <div class="col-sm">
-      <div class="bg-dark text-white text-center p-5" style="background: url(https://images.unsplash.com/photo-1509170051686-83f8efd35a31?auto=format&fit=crop&w=2250&q=80); background-size: cover;">
+      <div class="bg-dark text-white text-center p-5 bg-image" style="background-image: url(https://images.unsplash.com/photo-1487089427585-85563b1049f3?auto=format&fit=crop&w=2690&q=80);">
         <div class="card-body">
-          <h2 class="card-title display-4">All songs</h2>
-          <p class="card-text">Find information about songs others have shared, or add your own</p>
-          <a href="/songs/" class="btn btn-lg btn-outline-light"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</a>
+          <h2 class="card-title display-4">Inspiration</h2>
+          <p class="card-text">See what songs others are singing, create and share a worship set</p>
+          <a href="#" class="btn btn-lg btn-light"><i class="fa fa-share"></i>&nbsp;&nbsp;Share</a>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<div class="bg-light">
+  <div class="container py-5 bg-white about">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <h2 class="mb-4">About the Worship Project</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, magnam voluptate, quasi distinctio omnis obcaecati libero natus eum nihil vero ea dicta voluptatem, at, temporibus asperiores iusto aliquam exercitationem ut.</p>
+        <p>Veritatis cupiditate laborum explicabo molestias nesciunt consequatur labore illum similique, officia maiores quasi! Eligendi repudiandae ratione harum. A ratione, dolore, molestiae quidem quibusdam ipsum saepe voluptates perspiciatis nulla autem veritatis!</p>
+        <button class="btn btn-secondary">Read more</button>
+      </div>
+      <div class="col-md-3">
+        <img class="img-fluid" src="https://images.unsplash.com/photo-1482627988233-7c68311232ea?ixlib=rb-0.3.5&s=83f7e22f8339d86bbce6cec94e4ab8f0&auto=format&fit=crop&w=1234&q=80" alt="Singing">
+      </div>
+    </div>
+  </div>
+</div>
 <% include partials/footer %>

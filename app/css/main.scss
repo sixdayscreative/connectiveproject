@@ -1,7 +1,54 @@
+$primaryColor: #FF9900;
+
 body{
   font-family: 'Rubik', sans-serif;
   color: #707070;
 }
+h2{
+  font-weight: 300;
+  font-size: 2em;
+}
+h3{
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.bg-image{
+    position: relative;
+    background-size: cover;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    @media(min-width: 960px){
+      min-height: 50vh;
+    }
+    .card-body{
+      position: relative;
+      z-index: 10;
+      .card-text, .card-title{
+        text-shadow: 0 0 1.5em #000;
+      }
+    }
+    &::before{
+      content: '';
+      background: #000;
+      opacity: 0.35;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+}
+
+.about{
+  box-shadow: 0 0.5em 5em rgba(0,0,0,0.1);
+}
+
 .btn-primary{
   background-color: #FF9900;
   border-color: #F90;
@@ -38,17 +85,8 @@ body{
   display: block;
 }
 
-.song-lyrics textarea{
-  resize: none;
-  height: auto;
-  border: 0;
-  border-bottom: 2px dashed #999;
-}
 
-.verse_add{
-  background: none;
-  text-transform: uppercase;
-}
+
 
 .song-list a{
 
@@ -71,3 +109,151 @@ body{
 .icon-block{
   display: block;
 }
+.form-control:focus{
+  border-color: $primaryColor;
+}
+
+.form-control:focus, .btn:focus{
+  box-shadow: none;
+}
+
+
+.song-lyrics {
+  .title{
+    padding-bottom: 1em;
+  }
+  .form-group{
+    border-top: 2px dashed #ddd;
+    position: relative;
+    padding: 2em 0 0;
+    .delete_verse{
+      position: absolute;
+      right: 0;
+      top: 0.25em;
+      font-size: 1em;
+      line-height: 1.5em;
+      opacity: 0;
+      cursor: pointer;
+      height: 1.5em;
+      background: #eee;
+      border-radius: 0.75em;
+      z-index: 100;
+      padding: 0 0.5em;
+      span{
+        text-transform: uppercase;
+        font-size: 0.75em;
+        font-weight: 700;
+      }
+      &:hover{
+        opacity: 1;
+      }
+    }
+    &:hover{
+      .delete_verse{
+        opacity: 0.5;
+      }
+    }
+    textarea.form-control{
+      resize: none;
+      height: auto;
+      border: 0;
+      border-radius: 3em;
+      text-align: center;
+      padding: 1em 0 1.5em;
+      &:hover{
+        background-color: #f8f8f8;
+      }
+      &:focus{
+        outline: none;
+        box-shadow: none;
+        border-color: #999;
+        background: #f4f4f4;
+      }
+    }
+  }
+}
+.verse-type-select{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  border: 2px dashed #eee;
+  border-radius: 3em;
+  height: 3em;
+  label{
+    cursor: pointer;
+    font-style: italic;
+    opacity: 0;
+    height: 3em;
+    padding: 1em 0;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    line-height: 1;
+    transition: transform 0.25s ease-out, opacity 0.35s ease-out;
+    &:nth-of-type(1){
+      transform: translateX(0%);
+    }
+    &:nth-of-type(2){
+      transform: translateX(0%);
+    }
+    &:nth-of-type(3){
+      transform: translateX(0%);
+    }
+    &:hover{
+      opacity: 1;
+      color: #000;
+    }
+  }
+  input{
+    position: absolute;
+    left: -10000px;
+    &:checked + label{
+      opacity: 1 ;
+      &:nth-of-type(1){
+        transform: translateX(100%);
+      }
+      &:nth-of-type(2){
+        transform: translateX(0%);
+      }
+      &:nth-of-type(3){
+        transform: translateX(-100%);
+      }
+    }
+  }
+  &:hover{
+    input + label{
+      opacity: 0.5;
+      &:nth-of-type(1){
+        transform: translateX(0%);
+      }
+      &:nth-of-type(2){
+        transform: translateX(0%);
+      }
+      &:nth-of-type(3){
+        transform: translateX(0%);
+      }
+      &:hover{
+        opacity: 1;
+      }
+    }
+    input:checked + label{
+      opacity: 1;
+    }
+  }
+}
+
+.add-lyrics-btn-group{
+  text-align: center;
+  padding: 1em;
+  border-top: 2px dashed #ddd;
+  .btn{
+    background: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.875em;
+    &:hover{
+      color: #000;
+    }
+  }
+}
+@import "presentation";

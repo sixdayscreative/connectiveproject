@@ -78,6 +78,7 @@ module.exports = __webpack_require__(1);
 
 
 __webpack_require__(2);
+var autosize = __webpack_require__(7);
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -92,16 +93,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function addVerse(verseType) {
-    var lyricMarkup = "\n        <div id=\"verse_type_select\">\n          <input type=\"radio\" value=\"Verse\" id=\"verse" + verseCount + "\" name=\"lyrics" + verseCount + "[verseType]\" " + isVerseType("Verse", verseType) + ">\n          <label for=\"verse" + verseCount + "\">Verse</label>\n          <input type=\"radio\" value=\"Chorus\" id=\"chorus" + verseCount + "\" name=\"lyrics" + verseCount + "[verseType]\" " + isVerseType("Chorus", verseType) + ">\n          <label for=\"chorus" + verseCount + "\">Chorus</label>\n          <input type=\"radio\" value=\"Bridge\" id=\"bridge" + verseCount + "\" name=\"lyrics" + verseCount + "[verseType]\" " + isVerseType("Bridge", verseType) + ">\n          <label for=\"bridge" + verseCount + "\">Bridge</label>\n        </div>\n        <span class=\"delete\">&times;</span>\n        <textarea class=\"form-control\" name=\"lyrics" + verseCount + "[verseText]\" cols=\"30\" rows=\"10\" placeholder=\"Insert lyrics here...\"></textarea>\n      ";
+    var lyricMarkup = '\n        <div id="verse_type_select" class="verse-type-select">\n          <input type="radio" value="Verse" id="verse' + verseCount + '" name="lyrics' + verseCount + '[verseType]" ' + isVerseType("Verse", verseType) + '>\n          <label for="verse' + verseCount + '">Verse</label>\n          <input type="radio" value="Chorus" id="chorus' + verseCount + '" name="lyrics' + verseCount + '[verseType]" ' + isVerseType("Chorus", verseType) + '>\n          <label for="chorus' + verseCount + '">Chorus</label>\n          <input type="radio" value="Bridge" id="bridge' + verseCount + '" name="lyrics' + verseCount + '[verseType]" ' + isVerseType("Bridge", verseType) + '>\n          <label for="bridge' + verseCount + '">Bridge</label>\n        </div>\n        <div class="delete_verse"><i class="fa fa-trash"></i> <span>Delete</span></div>\n        <textarea class="form-control text-center" name="lyrics' + verseCount + '[verseText]" rows="1" placeholder="Enter lyrics here..."></textarea>\n      ';
     var newNode = document.createElement("DIV");
     newNode.classList.add("form-group");
 
     newNode.innerHTML = lyricMarkup;
     document.getElementById("lyrics").appendChild(newNode);
+    autosize(document.querySelectorAll('#lyrics textarea'));
 
     verseCount++;
 
-    var deleteButtons = document.querySelectorAll(".delete");
+    var deleteButtons = document.querySelectorAll(".delete_verse");
 
     deleteButtons.forEach(function (button, i) {
       button.addEventListener("click", function () {
@@ -118,6 +120,60 @@ document.addEventListener("DOMContentLoaded", function () {
   function deleteVerse(verse, index) {
     verse.remove();
   }
+
+  autosize(document.querySelectorAll('#lyrics textarea'));
+
+  function slideShowNav() {
+
+    var slides = document.querySelector(".slides");
+
+    window.addEventListener("keydown", function (e) {
+      switch (e.which) {
+        case 39:
+          nextSlide();
+          break;
+        case 37:
+          prevSlide();
+      }
+      console.log(e);
+    });
+
+    slides.addEventListener("click", function () {
+      nextSlide();
+    });
+
+    function prevSlide() {
+      var activeSlide = "";
+
+      activeSlide = slides.querySelector(".active");
+      if (activeSlide) {
+        if (activeSlide.previousElementSibling) {
+          activeSlide.previousElementSibling.classList.add("active");
+          activeSlide.classList.remove("active");
+        }
+      } else {
+        slides.querySelector(".slide:last-child").classList.add("active");
+      }
+    }
+
+    function nextSlide() {
+      var activeSlide = "";
+
+      activeSlide = slides.querySelector(".active");
+      if (activeSlide) {
+        if (activeSlide.nextElementSibling) {
+          activeSlide.nextElementSibling.classList.add("active");
+          activeSlide.classList.remove("active");
+        } else {
+          activeSlide.classList.remove("active");
+        }
+      } else {
+        slides.querySelector(".slide").classList.add("active");
+      }
+    }
+  }
+
+  slideShowNav();
 });
 
 /***/ }),
@@ -160,7 +216,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "body {\n  font-family: 'Rubik', sans-serif;\n  color: #707070; }\n\n.btn-primary {\n  background-color: #FF9900;\n  border-color: #F90; }\n\n.btn-primary:hover {\n  background-color: #E07320;\n  border-color: #E07320; }\n\n.navbar-brand {\n  text-transform: uppercase;\n  font-weight: bold;\n  font-size: 0.875em; }\n\n.song-title {\n  font-weight: 400;\n  font-size: 1.75em; }\n\n.song-author {\n  text-transform: uppercase;\n  font-size: 0.875em;\n  font-weight: 500; }\n\n.song-actions .btn {\n  padding-left: 0.25em;\n  padding-right: 0.25em;\n  border-radius: 0;\n  opacity: 0.75; }\n\n.song-actions .btn .text {\n  font-size: 0.65em;\n  font-weight: 500;\n  text-transform: uppercase;\n  display: block; }\n\n.song-lyrics textarea {\n  resize: none;\n  height: auto;\n  border: 0;\n  border-bottom: 2px dashed #999; }\n\n.verse_add {\n  background: none;\n  text-transform: uppercase; }\n\n.song-list ul {\n  padding: 0; }\n\n.song-list li {\n  list-style-type: none; }\n\n.song-list a {\n  color: #444; }\n\n.form-control-outline, .form-control-outline:focus {\n  background: none;\n  color: #fff; }\n\n.icon-block {\n  display: block; }\n", ""]);
+exports.push([module.i, "body {\n  font-family: 'Rubik', sans-serif;\n  color: #707070; }\n\nh2 {\n  font-weight: 300;\n  font-size: 2em; }\n\nh3 {\n  font-size: 1.5em;\n  font-weight: 400; }\n\n.bg-image {\n  position: relative;\n  background-size: cover;\n  display: -webkit-flex;\n  display: -ms-flex;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 80vh; }\n  @media (min-width: 960px) {\n    .bg-image {\n      min-height: 50vh; } }\n  .bg-image .card-body {\n    position: relative;\n    z-index: 10; }\n    .bg-image .card-body .card-text, .bg-image .card-body .card-title {\n      text-shadow: 0 0 1.5em #000; }\n  .bg-image::before {\n    content: '';\n    background: #000;\n    opacity: 0.35;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0;\n    z-index: 1; }\n\n.about {\n  box-shadow: 0 0.5em 5em rgba(0, 0, 0, 0.1); }\n\n.btn-primary {\n  background-color: #FF9900;\n  border-color: #F90; }\n\n.btn-primary:hover {\n  background-color: #E07320;\n  border-color: #E07320; }\n\n.navbar-brand {\n  text-transform: uppercase;\n  font-weight: bold;\n  font-size: 0.875em; }\n\n.song-title {\n  font-weight: 400;\n  font-size: 1.75em; }\n\n.song-author {\n  text-transform: uppercase;\n  font-size: 0.875em;\n  font-weight: 500; }\n\n.song-actions .btn {\n  padding-left: 0.25em;\n  padding-right: 0.25em;\n  border-radius: 0;\n  opacity: 0.75; }\n\n.song-actions .btn .text {\n  font-size: 0.65em;\n  font-weight: 500;\n  text-transform: uppercase;\n  display: block; }\n\n.song-list ul {\n  padding: 0; }\n\n.song-list li {\n  list-style-type: none; }\n\n.song-list a {\n  color: #444; }\n\n.form-control-outline, .form-control-outline:focus {\n  background: none;\n  color: #fff; }\n\n.icon-block {\n  display: block; }\n\n.form-control:focus {\n  border-color: #FF9900; }\n\n.form-control:focus, .btn:focus {\n  box-shadow: none; }\n\n.song-lyrics .title {\n  padding-bottom: 1em; }\n\n.song-lyrics .form-group {\n  border-top: 2px dashed #ddd;\n  position: relative;\n  padding: 2em 0 0; }\n  .song-lyrics .form-group .delete_verse {\n    position: absolute;\n    right: 0;\n    top: 0.25em;\n    font-size: 1em;\n    line-height: 1.5em;\n    opacity: 0;\n    cursor: pointer;\n    height: 1.5em;\n    background: #eee;\n    border-radius: 0.75em;\n    z-index: 100;\n    padding: 0 0.5em; }\n    .song-lyrics .form-group .delete_verse span {\n      text-transform: uppercase;\n      font-size: 0.75em;\n      font-weight: 700; }\n    .song-lyrics .form-group .delete_verse:hover {\n      opacity: 1; }\n  .song-lyrics .form-group:hover .delete_verse {\n    opacity: 0.5; }\n  .song-lyrics .form-group textarea.form-control {\n    resize: none;\n    height: auto;\n    border: 0;\n    border-radius: 3em;\n    text-align: center;\n    padding: 1em 0 1.5em; }\n    .song-lyrics .form-group textarea.form-control:hover {\n      background-color: #f8f8f8; }\n    .song-lyrics .form-group textarea.form-control:focus {\n      outline: none;\n      box-shadow: none;\n      border-color: #999;\n      background: #f4f4f4; }\n\n.verse-type-select {\n  display: -webkit-flex;\n  display: -ms-flex;\n  display: flex;\n  border: 2px dashed #eee;\n  border-radius: 3em;\n  height: 3em; }\n  .verse-type-select label {\n    cursor: pointer;\n    font-style: italic;\n    opacity: 0;\n    height: 3em;\n    padding: 1em 0;\n    text-align: center;\n    width: 100%;\n    margin: 0;\n    line-height: 1;\n    transition: transform 0.25s ease-out, opacity 0.35s ease-out; }\n    .verse-type-select label:nth-of-type(1) {\n      transform: translateX(0%); }\n    .verse-type-select label:nth-of-type(2) {\n      transform: translateX(0%); }\n    .verse-type-select label:nth-of-type(3) {\n      transform: translateX(0%); }\n    .verse-type-select label:hover {\n      opacity: 1;\n      color: #000; }\n  .verse-type-select input {\n    position: absolute;\n    left: -10000px; }\n    .verse-type-select input:checked + label {\n      opacity: 1; }\n      .verse-type-select input:checked + label:nth-of-type(1) {\n        transform: translateX(100%); }\n      .verse-type-select input:checked + label:nth-of-type(2) {\n        transform: translateX(0%); }\n      .verse-type-select input:checked + label:nth-of-type(3) {\n        transform: translateX(-100%); }\n  .verse-type-select:hover input + label {\n    opacity: 0.5; }\n    .verse-type-select:hover input + label:nth-of-type(1) {\n      transform: translateX(0%); }\n    .verse-type-select:hover input + label:nth-of-type(2) {\n      transform: translateX(0%); }\n    .verse-type-select:hover input + label:nth-of-type(3) {\n      transform: translateX(0%); }\n    .verse-type-select:hover input + label:hover {\n      opacity: 1; }\n  .verse-type-select:hover input:checked + label {\n    opacity: 1; }\n\n.add-lyrics-btn-group {\n  text-align: center;\n  padding: 1em;\n  border-top: 2px dashed #ddd; }\n  .add-lyrics-btn-group .btn {\n    background: none;\n    text-transform: uppercase;\n    font-weight: 700;\n    font-size: 0.875em; }\n    .add-lyrics-btn-group .btn:hover {\n      color: #000; }\n\n.lyrics-presentation {\n  position: relative;\n  height: 100vh;\n  width: 100%;\n  overflow: hidden; }\n  .lyrics-presentation .slide-nav {\n    position: absolute;\n    z-index: 100;\n    right: 0;\n    top: 0;\n    height: 100vh;\n    display: -webkit-flex;\n    display: -ms-flex;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    flex-flow: column;\n    width: 7em; }\n    .lyrics-presentation .slide-nav a {\n      color: #fff;\n      display: block;\n      padding: 2em 0;\n      transition: transform 0.15s ease-out; }\n      .lyrics-presentation .slide-nav a:hover {\n        transform: scale(1.5); }\n  .lyrics-presentation .slide {\n    opacity: 0;\n    position: absolute;\n    top: 0;\n    left: 0;\n    transform: scale(0.6) translateY(30%);\n    height: 100vh;\n    width: 100%;\n    text-align: center;\n    display: block;\n    color: #fff;\n    display: -webkit-flex;\n    display: -ms-flex;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    line-height: 1.611;\n    text-shadow: 0 0.05em 0.15em #000, 0 0.05em 0.35em #000;\n    transition: transform 0.15s ease-out, opacity 0.15s ease-out; }\n    .lyrics-presentation .slide.active {\n      transform: scale(1);\n      opacity: 1; }\n    .lyrics-presentation .slide ul {\n      padding: 0; }\n    .lyrics-presentation .slide li {\n      list-style-type: none;\n      font-weight: 300;\n      padding: 0;\n      line-height: 1.611;\n      text-shadow: 0 0.05em 0.15em #000, 0 0.05em 0.35em #000; }\n\n* {\n  box-sizing: border-box; }\n\n.video-background {\n  background: #000;\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -99; }\n\n.video-foreground,\n.video-background iframe {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  opacity: 0.85; }\n\n@media (min-aspect-ratio: 16 / 9) {\n  .video-foreground {\n    height: 300%;\n    top: -100%; } }\n\n@media (max-aspect-ratio: 16 / 9) {\n  .video-foreground {\n    width: 300%;\n    left: -100%; } }\n", ""]);
 
 // exports
 
@@ -713,6 +769,306 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Autosize 4.0.0
+	license: MIT
+	http://www.jacklmoore.com/autosize
+*/
+(function (global, factory) {
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, module], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
+		factory(exports, module);
+	} else {
+		var mod = {
+			exports: {}
+		};
+		factory(mod.exports, mod);
+		global.autosize = mod.exports;
+	}
+})(this, function (exports, module) {
+	'use strict';
+
+	var map = typeof Map === "function" ? new Map() : (function () {
+		var keys = [];
+		var values = [];
+
+		return {
+			has: function has(key) {
+				return keys.indexOf(key) > -1;
+			},
+			get: function get(key) {
+				return values[keys.indexOf(key)];
+			},
+			set: function set(key, value) {
+				if (keys.indexOf(key) === -1) {
+					keys.push(key);
+					values.push(value);
+				}
+			},
+			'delete': function _delete(key) {
+				var index = keys.indexOf(key);
+				if (index > -1) {
+					keys.splice(index, 1);
+					values.splice(index, 1);
+				}
+			}
+		};
+	})();
+
+	var createEvent = function createEvent(name) {
+		return new Event(name, { bubbles: true });
+	};
+	try {
+		new Event('test');
+	} catch (e) {
+		// IE does not support `new Event()`
+		createEvent = function (name) {
+			var evt = document.createEvent('Event');
+			evt.initEvent(name, true, false);
+			return evt;
+		};
+	}
+
+	function assign(ta) {
+		if (!ta || !ta.nodeName || ta.nodeName !== 'TEXTAREA' || map.has(ta)) return;
+
+		var heightOffset = null;
+		var clientWidth = ta.clientWidth;
+		var cachedHeight = null;
+
+		function init() {
+			var style = window.getComputedStyle(ta, null);
+
+			if (style.resize === 'vertical') {
+				ta.style.resize = 'none';
+			} else if (style.resize === 'both') {
+				ta.style.resize = 'horizontal';
+			}
+
+			if (style.boxSizing === 'content-box') {
+				heightOffset = -(parseFloat(style.paddingTop) + parseFloat(style.paddingBottom));
+			} else {
+				heightOffset = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+			}
+			// Fix when a textarea is not on document body and heightOffset is Not a Number
+			if (isNaN(heightOffset)) {
+				heightOffset = 0;
+			}
+
+			update();
+		}
+
+		function changeOverflow(value) {
+			{
+				// Chrome/Safari-specific fix:
+				// When the textarea y-overflow is hidden, Chrome/Safari do not reflow the text to account for the space
+				// made available by removing the scrollbar. The following forces the necessary text reflow.
+				var width = ta.style.width;
+				ta.style.width = '0px';
+				// Force reflow:
+				/* jshint ignore:start */
+				ta.offsetWidth;
+				/* jshint ignore:end */
+				ta.style.width = width;
+			}
+
+			ta.style.overflowY = value;
+		}
+
+		function getParentOverflows(el) {
+			var arr = [];
+
+			while (el && el.parentNode && el.parentNode instanceof Element) {
+				if (el.parentNode.scrollTop) {
+					arr.push({
+						node: el.parentNode,
+						scrollTop: el.parentNode.scrollTop
+					});
+				}
+				el = el.parentNode;
+			}
+
+			return arr;
+		}
+
+		function resize() {
+			var originalHeight = ta.style.height;
+			var overflows = getParentOverflows(ta);
+			var docTop = document.documentElement && document.documentElement.scrollTop; // Needed for Mobile IE (ticket #240)
+
+			ta.style.height = '';
+
+			var endHeight = ta.scrollHeight + heightOffset;
+
+			if (ta.scrollHeight === 0) {
+				// If the scrollHeight is 0, then the element probably has display:none or is detached from the DOM.
+				ta.style.height = originalHeight;
+				return;
+			}
+
+			ta.style.height = endHeight + 'px';
+
+			// used to check if an update is actually necessary on window.resize
+			clientWidth = ta.clientWidth;
+
+			// prevents scroll-position jumping
+			overflows.forEach(function (el) {
+				el.node.scrollTop = el.scrollTop;
+			});
+
+			if (docTop) {
+				document.documentElement.scrollTop = docTop;
+			}
+		}
+
+		function update() {
+			resize();
+
+			var styleHeight = Math.round(parseFloat(ta.style.height));
+			var computed = window.getComputedStyle(ta, null);
+
+			// Using offsetHeight as a replacement for computed.height in IE, because IE does not account use of border-box
+			var actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(computed.height)) : ta.offsetHeight;
+
+			// The actual height not matching the style height (set via the resize method) indicates that
+			// the max-height has been exceeded, in which case the overflow should be allowed.
+			if (actualHeight !== styleHeight) {
+				if (computed.overflowY === 'hidden') {
+					changeOverflow('scroll');
+					resize();
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+				}
+			} else {
+				// Normally keep overflow set to hidden, to avoid flash of scrollbar as the textarea expands.
+				if (computed.overflowY !== 'hidden') {
+					changeOverflow('hidden');
+					resize();
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
+				}
+			}
+
+			if (cachedHeight !== actualHeight) {
+				cachedHeight = actualHeight;
+				var evt = createEvent('autosize:resized');
+				try {
+					ta.dispatchEvent(evt);
+				} catch (err) {
+					// Firefox will throw an error on dispatchEvent for a detached element
+					// https://bugzilla.mozilla.org/show_bug.cgi?id=889376
+				}
+			}
+		}
+
+		var pageResize = function pageResize() {
+			if (ta.clientWidth !== clientWidth) {
+				update();
+			}
+		};
+
+		var destroy = (function (style) {
+			window.removeEventListener('resize', pageResize, false);
+			ta.removeEventListener('input', update, false);
+			ta.removeEventListener('keyup', update, false);
+			ta.removeEventListener('autosize:destroy', destroy, false);
+			ta.removeEventListener('autosize:update', update, false);
+
+			Object.keys(style).forEach(function (key) {
+				ta.style[key] = style[key];
+			});
+
+			map['delete'](ta);
+		}).bind(ta, {
+			height: ta.style.height,
+			resize: ta.style.resize,
+			overflowY: ta.style.overflowY,
+			overflowX: ta.style.overflowX,
+			wordWrap: ta.style.wordWrap
+		});
+
+		ta.addEventListener('autosize:destroy', destroy, false);
+
+		// IE9 does not fire onpropertychange or oninput for deletions,
+		// so binding to onkeyup to catch most of those events.
+		// There is no way that I know of to detect something like 'cut' in IE9.
+		if ('onpropertychange' in ta && 'oninput' in ta) {
+			ta.addEventListener('keyup', update, false);
+		}
+
+		window.addEventListener('resize', pageResize, false);
+		ta.addEventListener('input', update, false);
+		ta.addEventListener('autosize:update', update, false);
+		ta.style.overflowX = 'hidden';
+		ta.style.wordWrap = 'break-word';
+
+		map.set(ta, {
+			destroy: destroy,
+			update: update
+		});
+
+		init();
+	}
+
+	function destroy(ta) {
+		var methods = map.get(ta);
+		if (methods) {
+			methods.destroy();
+		}
+	}
+
+	function update(ta) {
+		var methods = map.get(ta);
+		if (methods) {
+			methods.update();
+		}
+	}
+
+	var autosize = null;
+
+	// Do nothing in Node.js environment and IE8 (or lower)
+	if (typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') {
+		autosize = function (el) {
+			return el;
+		};
+		autosize.destroy = function (el) {
+			return el;
+		};
+		autosize.update = function (el) {
+			return el;
+		};
+	} else {
+		autosize = function (el, options) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], function (x) {
+					return assign(x, options);
+				});
+			}
+			return el;
+		};
+		autosize.destroy = function (el) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], destroy);
+			}
+			return el;
+		};
+		autosize.update = function (el) {
+			if (el) {
+				Array.prototype.forEach.call(el.length ? el : [el], update);
+			}
+			return el;
+		};
+	}
+
+	module.exports = autosize;
+});
 
 /***/ })
 /******/ ]);

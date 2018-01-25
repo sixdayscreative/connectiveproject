@@ -1,0 +1,24 @@
+<form action="/songs/<%= song._id %>/songlyrics" method="POST">
+  <h3 class="title">Lyrics to &lsquo;<%= song.title %>&rsquo;</h3>
+  <div id="lyrics">
+  </div>
+
+  <div class="add-lyrics-btn-group">
+    <div class="verse_add btn text-secondary" data-vstype="Verse" name="button">
+      <i class="fa fa-2x fa-plus icon-block"></i>
+      Add Verse
+    </div>
+    <div class="verse_add btn text-secondary" data-vstype="Chorus" name="button">
+      <i class="fa fa-2x fa-plus icon-block"></i>
+      Add Chorus
+    </div>
+    <div class="verse_add btn text-secondary" data-vstype="Bridge" name="button">
+      <i class="fa fa-2x fa-plus icon-block"></i>
+      Add Bridge
+    </div>
+
+  </div>
+  <div class="add-lyrics-btn-group">
+    <button class="btn text-secondary"><i class="fa fa-2x fa-check-circle-o icon-block"></i>Save Lyrics</button>
+  </div>
+</form>

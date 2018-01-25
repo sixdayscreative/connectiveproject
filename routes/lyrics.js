@@ -62,17 +62,106 @@ router.get("/edit", function(req, res){
     }
   });
 });
+
 // - update
-// router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
-//   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, foundComment){
-//     if (err) {
-//     console.log(err);
-//       res.redirect("back")
-//     } else {
-//       res.redirect("/songs/"+ req.params.id + "#" + req.params.comment_id);
-//     }
-//   });
-// });
+router.post("/edit", function(req, res){
+  Song.findById(req.params.id).populate("lyrics").exec(function(err, foundSong){
+    foundSong.lyrics.forEach(function(lyric){
+      Lyrics.findByIdAndRemove(lyric._id, function(err, foundVerse){
+
+        if(err){
+          console.log(err);
+        } else {
+          console.log(`removed ${foundVerse._id}`);
+        }
+      })
+    });
+
+    let newVerse = [];
+
+    Object.keys(req.body).forEach(function(verse, index) {
+      newVerse.push({
+        verseType: req.body[verse].verseType,
+        text: req.body[verse].verseText,
+        order: index
+      });
+    });
+
+
+
+    newVerse.forEach((verse, i) => {
+       Lyrics.create(verse, function(err, addedVerse){
+        if(err){
+          console.log(err);
+        } else {
+
+          foundSong.lyrics.push(addedVerse);
+
+          console.log(foundSong.lyrics);
+          if (newVerse.length === i + 1)
+          {
+            saveLyrics();
+          }
+        }
+       });
+    });
+    function saveLyrics(){
+      foundSong.save();
+      res.redirect("back");
+    }
+
+
+  });
+
+    // Song.findById(req.params.id, function(err, song){
+    //   if(err){
+    //     console.log(err);
+    //   } else {
+    //
+    //
+    //     //song.save();
+    //     console.log(song);
+    //   }
+    // });
+
+
+
+  //  res.redirect("back")
+  //   Song.findById(req.params.id, function(err, song){
+  //
+  //   if(err){
+  //     console.log(err);
+  //     res.redirect("/songs");
+  //   } else {
+  //     let newVerse = [];
+  //     Object.keys(req.body).forEach(function(verse, index) {
+  //       newVerse.push({
+  //         verseType: req.body[verse].verseType,
+  //         text: req.body[verse].verseText,
+  //         order: index
+  //       });
+  //     });
+  //     newVerse.forEach((verse, i) => {
+  //       Lyrics.create(verse, function(err, addedVerse){
+  //         if(err){
+  //           console.log(err);
+  //         } else {
+  //           // add username and id to verse
+  //           // addedVerse.author.id = req.user.id;
+  //           // addedVerse.author.displayName = req.user.name.givenName + " " + req.user.name.familyName;
+  //           // addedVerse.save();
+  //           song.lyrics.push(addedVerse);
+  //           if (newVerse.length === i + 1)
+  //           {
+  //             song.save();
+  //             res.redirect("/songs/"+ req.params.id);
+  //           }
+  //         }
+  //       });
+  //     });
+  //   }
+  // });
+});
 
 //============================
 

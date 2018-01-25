@@ -67,6 +67,16 @@ router.get("/:id", function(req, res){
   });
 });
 
+router.get("/:id/present", function(req, res){
+  Song.findById(req.params.id).populate("lyrics").exec(function(err, foundSong){
+    if(err){
+      console.log(err);
+    } else {
+      res.render("songs/present", {song: foundSong});
+    }
+  });
+});
+
 //SONG EDIT ==================
 router.get("/:id/edit", middleware.isLoggedIn, function(req, res){
   Song.findById(req.params.id, function(err, foundSong) {
