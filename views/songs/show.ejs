@@ -62,7 +62,7 @@
         <div class="song-contributors">
           <h5>Contributors</h5>
           <% song.contributors.forEach(function(contributor){%>
-            <%= contributor.displayName %>
+            <a href="/profile/<%= contributor.id %>"><%= contributor.displayName %></a>
           <% }) %>
         </div>
         <div class="song-themes">
@@ -99,7 +99,7 @@
         <div class="song-ratings">
           <h4>Ratings</h4>
           <div class="row no-gutters">
-            <div class="col-6 text-center">
+            <div class="col-4 text-center">
               <div class="card rounded-0">
                 <div class="card-body">
                   <strong class="display-4"><%= song.simplicityRating %></strong>
@@ -107,7 +107,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-6 text-center">
+            <div class="col-4 text-center">
               <div class="card rounded-0">
                 <div class="card-body">
                   <strong class="display-4"><%= song.doctrineRating %></strong>
@@ -115,19 +115,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-6 text-center">
+            <div class="col-4 text-center">
               <div class="card rounded-0">
                 <div class="card-body">
                   <strong class="display-4"><%= song.worshipRating %></strong>
                   <h6>Worship</h6>
-                </div>
-              </div>
-            </div>
-            <div class="col-6 text-center">
-              <div class="card rounded-0">
-                <div class="card-body">
-                  <strong class="display-4"><%= song.simplicityRating %></strong>
-                  <h6>Modern</h6>
                 </div>
               </div>
             </div>

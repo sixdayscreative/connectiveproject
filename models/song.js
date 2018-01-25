@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
-let songSchema = new mongoose.Schema({
+const songSchema = new mongoose.Schema({
   title: {
     type: [String],
     index: true
@@ -34,5 +35,7 @@ let songSchema = new mongoose.Schema({
     }
   ]
 });
+
+songSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Song", songSchema);

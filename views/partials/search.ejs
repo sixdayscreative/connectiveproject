@@ -1,0 +1,17 @@
+<div class="card-body">
+  <form action="/songs" method="GET">
+  <div class="row justify-content-center">
+    <div class="col-7">
+        <div class="input-group">
+          <input type="search" name="search" class="form-control form-control-lg" placeholder="Find a song..." autocomplete="off" <% if(typeof searchVal !== 'undefined'){ %>value="<%= searchVal %>"<% } %>>
+          <div class="input-group-append">
+            <button class="btn btn-primary btn-lg" type="submit"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <a href="/songs/add" class="btn btn-primary btn-lg btn-block">Add song &nbsp;<i class="fa fa-plus-circle"></i></a>
+    </div>
+  </div>
+  </form>
+</div>

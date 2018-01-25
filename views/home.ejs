@@ -1,27 +1,6 @@
 <% include partials/header %>
 <div class="bg-light"><div class="container">
-    <div class="card-body">
-      <form action="" class="py-3">
-      <div class="row justify-content-center">
-        <div class="col-md-7">
-          <div class="input-group">
-            <input type="text" class="form-control form-control-lg" placeholder="Find a song..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary btn-lg dropdown-toggle" style="border-radius: 0;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Song title</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Song title</a>
-                <a class="dropdown-item" href="#">Songwriter</a>
-                <a class="dropdown-item" href="#">Artist</a>
-                <!-- <div role="separator" class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a> -->
-              </div>
-              <button class="btn btn-primary btn-lg" type="button"><i class="fa fa-search"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </form>
-    </div>
+    <% include ./partials/search %>
   </div>
 </div>
 <div class="bg-dark home">

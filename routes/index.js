@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Song = require('../models/song');
 const passport = require('passport');
 const middleware = require('../middleware');
 
@@ -62,6 +63,23 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req, res){
   req.logout();
   res.redirect("/songs")
+});
+//======================
+
+
+//USER PROFILES ========
+router.get("/profile/:id", function(req, res){
+  User.findById(req.params.id, function(err, foundUser){
+    if(err){
+      console.log(err);
+    } else {
+      //Song.find().where("contributor")
+      Song.find( { "contributors": { id : {$in : foundUser._id } } }, function(err, songs){
+        console.log(songs);
+      });
+      res.render("users/show", {user: foundUser})
+    }
+  })
 });
 //======================
 

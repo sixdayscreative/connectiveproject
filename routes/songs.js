@@ -6,13 +6,25 @@ const middleware = require('../middleware');
 //SONGS INDEX ================
 
 router.get("/", function(req, res){
-  Song.find({}, function(err, allSongs){
-    if(err){
-      console.log(err);
-    } else {
-      res.render("songs/index", {songs : allSongs});
-    }
-  }).sort({title: 1});
+  if(req.query.search){
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Song.find({title: regex}, function(err, allSongs){
+      if(err){
+        console.log(err);
+      } else {
+        let searchVal = req.query.search;
+        res.render("songs/index", {songs : allSongs, searchVal: searchVal });
+      }
+    }).sort({title: 1});
+  } else {
+    Song.find({}, function(err, allSongs){
+      if(err){
+        console.log(err);
+      } else {
+        res.render("songs/index", {songs : allSongs});
+      }
+    }).sort({title: 1});
+  }
 });
 
 //============================
@@ -166,6 +178,10 @@ function checkSongAuth(req, res, next){
 
 
 //FUNCTIONS ==================
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router;

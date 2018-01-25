@@ -4,32 +4,16 @@
     <div class="pt-4">
       <h1 class="text-center display-4" style="font-size: 1.75em;">Songs by title</h1>
     </div>
-    <div class="card-body">
-      <form action="" class="p-2">
-      <div class="row justify-content-center">
-        <div class="col-7">
-          <div class="input-group">
-            <input type="text" class="form-control form-control-lg" placeholder="Find a song..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary btn-lg dropdown-toggle" style="border-radius: 0;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Song</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Song title</a>
-                <a class="dropdown-item" href="#">Songwriter</a>
-                <a class="dropdown-item" href="#">Artist</a>
-                <!-- <div role="separator" class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a> -->
-              </div>
-              <button class="btn btn-primary btn-lg" type="button"><i class="fa fa-search"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-2">
-            <a href="/songs/add" class="btn btn-primary btn-lg btn-block">Add song &nbsp;<i class="fa fa-plus-circle"></i></a>
-        </div>
-      </div>
-      </form>
-    </div>
 
+    <% include ../partials/search %>
+    <div class="search-query p-3 text-center">
+      <% if(typeof searchVal !== 'undefined' && songs.length){ %>
+        <h3>Songs titles containing &lsquo;<%= searchVal %>&rsquo;:</h3>
+      <% } else if(typeof searchVal !== 'undefined') { %>
+        <h3>No songs match your search for &lsquo;<%= searchVal %>&rsquo;</h3>
+        <a href="/songs/add" class="btn btn-primary btn-lg">Add this song <i class="fa fa-plus-circle ml-2"></i></a>
+      <% } %>
+    </div>
     <div class="song-list">
       <ul class="list-group">
         <% songs.forEach(function(song){ %>
