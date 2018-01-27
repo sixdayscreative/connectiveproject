@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded",function(){
       }
     }
   }
+  if(document.querySelector("slides")){
+    slideShowNav();
+  }
 
-
-
-  slideShowNav();
 });

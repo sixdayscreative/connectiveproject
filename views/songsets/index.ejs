@@ -1,0 +1,39 @@
+<% include ../partials/header %>
+<div class="container">
+<div class="row">
+  <div class="col-md-5 py-4">
+    <h1 class="display-4">Sets</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque autem tempora, eveniet quam nisi totam odit distinctio veritatis sunt dolor numquam architecto voluptas reprehenderit illum quaerat nobis amet porro, excepturi.</p>
+    <a href="/share/new" class="btn btn-lg btn-primary">Create a set</a>
+  </div>
+    <div class="col-md-7 py-4">
+      <%if(songsets.length) { %>
+      <% songsets.forEach(function(songset){ %>
+        <div class="card mb-2">
+          <div class="card-body">
+            <div class="row align-items-center justify-content-center no-gutters">
+              <div class="col-2">
+                <i class="fa fa-3x fa-music text-secondary"></i>
+              </div>
+              <div class="col-10">
+                <h3><a href="#"><%= songset.title %></a></h3>
+
+
+                <p class="small mb-1"><a href="/profile/<%= songset.author.id %>"><%= songset.author.displayName %></a> shared a set</p>
+                <p class="mb-0"><a href="/songs/<%= songset.songs[0].id %>"><%= songset.songs[0].title %></a>
+                  <% if(songset.songs.length-2 > 0){ %>
+                    and <a href="#"><%= songset.songs.length -1 %> other song<% if(songset.songs.length-1 > 1){ %>s<% } %></a>
+                  <% } %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+      <% } else { %>
+        Nothing to display
+      <% } %>
+    </div>
+  </div>
+
+</div>
+<% include ../partials/footer %>

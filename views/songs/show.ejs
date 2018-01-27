@@ -9,8 +9,18 @@
     <div class="row">
       <div class="col-md-7">
         <header class="song-header my-4">
-          <h1 class="song-title"><%= song.title %></h1>
-          <h2 class="song-author"><%= song.author %></h2>
+          <div class="row align-items-center justify-content-center">
+            <div class="col-lg-8">
+              <h1 class="song-title"><%= song.title %></h1>
+              <h2 class="song-author"><%= song.author %></h2>
+            </div>
+            <div class="col-lg-4 text-right">
+              <!-- <form class="">
+                <input type="hidden" name="" value="<%= song.id %>"> -->
+                <a href="/share/new" class="btn btn-primary btn-sm">Add to new set <i class="fa fa-plus ml-2"></i></a>
+              <!-- </form> -->
+            </div>
+          </div>
         </header>
         <div class="row">
           <div class="col-md-2 song-actions">
@@ -27,7 +37,7 @@
             </form>
           </div>
           <div class="col-md-10 text-center">
-            <div class="song-lyrics">
+            <div class="song-lyrics mb-5">
               <h4>Lyrics</h4>
               <% if(song.lyrics.length){%>
 
@@ -44,127 +54,171 @@
 
                 <% }) %>
               <% } else { %>
-              <a href="/songs/<%= song._id %>/songlyrics/add" class="btn btn-primary add">Add lyrics</a>
+              <a href="/songs/<%= song._id %>/songlyrics/add" class="btn btn-secondary btn-secondary-outline add mt-3 btn-block"><i class="fa fa-plus-circle fa-2x icon-block"></i> Add lyrics</a>
               <% } %>
+            </div>
+
+            <div class="card mb-2 song-media">
+              <div class="card-header">
+                <h5 class="mb-0"><i class="fa fa-headphones mr-2"></i> Media</h5>
+              </div>
+              <div class="card-body">
+                <% if(song.source){ %>
+                  <a class="btn btn-success btn-outline-secondary btn-block" href="<%= song.source %>" target="_blank"><i class="fa fa-youtube-play mr-2"></i> Listen on Youtube</a>
+                <% } else { %>
+                  <a href="#" class="btn btn-info">Add media for this song</a>
+                <% } %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-5">
-        <div class="song-media">
-          <h5>Media</h5>
-          <% if(song.source){ %>
-            <a class="btn btn-success btn-outline-secondary btn-block" href="<%= song.source %>" target="_blank"><i class="fa fa-youtube-play fa-2x"></i><br>Listen on Youtube</a>
-          <% } else { %>
-            <a href="#" class="btn btn-info">Add media for this song</a>
-          <% } %>
-        </div>
-        <div class="song-contributors">
-          <h5>Contributors</h5>
-          <% song.contributors.forEach(function(contributor){%>
-            <a href="/profile/<%= contributor.id %>"><%= contributor.displayName %></a>
-          <% }) %>
-        </div>
-        <div class="song-themes">
-          <h4>Themes</h4>
-
-          <% if(song.theme){ %>
-            <% song.theme.forEach(function(theme){%>
-              <%= song.theme %>
-            <% }) %>
-          <% } else {%>
-            <form action="">
-              <div class="form-group">
-                <label for="song_mood">What themes does this song explore?</label>
-                <input class="form-control" type="text" name="song[mood]" placeholder="(e.g. Heaven)">
-              </div>
-            </form>
-          <% } %>
-        </div>
-        <div class="song-mood">
-          <h4>Mood</h4>
-          <% if(song.mood){ %>
-            <% song.mood.forEach(function(mood){%>
-            <%= mood %>
-            <% }) %>
-          <% } else {%>
-            <form action="">
-              <div class="form-group">
-                <label for="song_mood">What type of mood does this song set?</label>
-                <input class="form-control" type="text" name="song[mood]" placeholder="(e.g. Relaxed)">
-              </div>
-            </form>
-          <% } %>
-        </div>
-        <div class="song-ratings">
-          <h4>Ratings</h4>
+      <div class="col-md-5 py-4">
+        <div class="card mb-2 song-score">
           <div class="row no-gutters">
             <div class="col-4 text-center">
-              <div class="card rounded-0">
-                <div class="card-body">
-                  <strong class="display-4"><%= song.simplicityRating %></strong>
-                  <h6>Simple</h6>
+              <div class="card-body score-card">
+                <strong class="display-4"><%= song.worshipRating %></strong>
+                <h6>Worship</h6>
+                <div class="score-info">
+                  <strong>Worship Score</strong>
+                  <p class="small">How does this song actively worship God?</p>
+                  1. Does not involve worship or praise. <br>
+                  2. Refers to the act of worshiping/praising God. <br>
+                  3. Contains parts that praise God. <br>
+                  4. Most of the song is praising God. <br>
+                  5. Sung to God; Refers to God as "You".
                 </div>
               </div>
             </div>
-            <div class="col-4 text-center">
-              <div class="card rounded-0">
-                <div class="card-body">
+            <div class="col-4 text-center border border-top-0 border-bottom-0 border-light">
+                <div class="card-body score-card">
                   <strong class="display-4"><%= song.doctrineRating %></strong>
-                  <h6>Doctrinal</h6>
+                  <h6>Teaching</h6>
+                  <div class="score-info">
+                    <strong>Teaching Score</strong>
+                    <p class="small">How does this song teach about God?</p>
+                    1. Christian song. <br>
+                    2. Contains a Biblical theme. <br>
+                    3. Reference to a scripture. <br>
+                    4. Biblically Doctrinal. <br>
+                    5. Contains Present Truth. </div>
                 </div>
-              </div>
             </div>
             <div class="col-4 text-center">
-              <div class="card rounded-0">
-                <div class="card-body">
-                  <strong class="display-4"><%= song.worshipRating %></strong>
-                  <h6>Worship</h6>
+                <div class="card-body score-card">
+                  <strong class="display-4"><%= song.simplicityRating %></strong>
+                  <h6>Simplicity</h6>
+                  <div class="score-info">
+                    <strong>Simplicity Score</strong>
+                    <p class="small">How easy is this song to understand?</p>
+                    1. Uses obsolete words. <br>
+                    2. High word count making it harder to memorise. <br>
+                    3. Requires an intellectual understanding of its meaning. <br>
+                    4. A child/young person can understand it. <br>
+                    5. An infant can understand it.</div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
-        <div class="comments">
-          <ul class="list-group">
-            <li class="list-group-item"><h5 class="mb-0">Comments</h5></li>
+
+        <div class="card mb-2 song-learn">
+          <div class="card-header">
+            <h5 class="mb-0"><i class="fa fa-music mr-2"></i> Learn</h5>
+          </div>
+          <div class="card-body">
+
+              <p class="mb-0">There is currently no additional material available for learning this song</p>
+          </div>
+        </div>
+        <div class="song-contributors card mb-2">
+          <div class="card-header">
+            <h5 class="mb-0">Contributor<% if(song.contributors.length > 1){ %>s<% } %></h5>
+          </div>
+          <div class="card-body"><% if(song.contributors.length){ %>
+            <% song.contributors.forEach(function(contributor){%>
+              <a href="/profile/<%= contributor.id %>"><%= contributor.displayName %></a>
+            <% }) %>
+            <% } else { %>
+              <strong>Admin</strong>
+            <% } %></div>
+        </div>
+        <div class="card song-themes mb-2">
+          <div class="card-header">
+            <h5 class="mb-0">Themes</h5>
+          </div>
+          <div class="card-body">
+            <% if(typeof song.theme){ %>
+              <% song.theme.forEach(function(theme){%>
+                <%= song.theme %>
+              <% }) %>
+            <% } else {%>
+              <form action="">
+                <div class="form-group">
+                  <label for="song_mood">What themes does this song explore?</label>
+                  <input class="form-control" type="text" name="song[mood]" placeholder="(e.g. Heaven)">
+                </div>
+              </form>
+            <% } %>
+          </div>
+        </div>
+        <div class="card song-mood mb-2">
+          <div class="card-header">
+            <h5>Mood</h5>
+          </div>
+          <div class="card-body"><% if(typeof song.mood){ %>
+              <% song.mood.forEach(function(mood){%>
+              <%= mood %>
+              <% }) %>
+            <% } else {%>
+              <form action="">
+                <div>
+                  <label for="song_mood">What type of mood does this song set?</label>
+                  <input class="form-control" type="text" name="song[mood]" placeholder="(e.g. Relaxed)">
+                </div>
+              </form>
+            <% } %></div>
+        </div>
+        <div class="comments card">
+          <div class="card-header"><h5 class="mb-0">Comments</h5></div>
+          <ul class="list-group list-group-flush">
+
           <% if(song.comments.length){ %>
           <% song.comments.forEach(function(comment){ %>
             <li id="<%= comment._id %>" class="list-group-item comment">
               <div class="comment-body">
                 <p><strong><%= comment.author.displayName %></strong></p>
                 <p><%= comment.text %></p>
-              </div>
+
               <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
               <div class="options">
-                <a class="btn btn-link" href="/songs/<%= song._id %>/comments/<%= comment._id %>/edit"><i class="fa fa-edit"></i></a>
-                <form action="/songs/<%= song._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                  <button class="btn btn-link"><i class="fa fa-trash"></i></button>
+                <a class="btn btn-link text-secondary" href="/songs/<%= song._id %>/comments/<%= comment._id %>/edit"><i class="fa fa-edit"></i></a>
+                <form style="display: inline;" action="/songs/<%= song._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                  <button class="btn btn-link text-secondary"><i class="fa fa-trash"></i></button>
                 </form>
               </div>
               <% } %>
+            </div>
             </li>
+            </ul>
           <% }); %>
           <% } else { %>
-            <li class="list-group-item no-comments">
+            </ul>
+            <div class="card-body">
               <p class="mb-0">There are no comments for this song</p>
-            </li>
-            <hr>
+            </div>
           <% } %>
-          </ul>
 
-          <% if(currentUser){ %>
-          <form action="/songs/<%= song._id %>/comments" method="POST">
-          <!-- <div class="form-group">
-            <input class="form-control" type="text" name="comment[author]" placeholder="Name">
-          </div> -->
-
-          <% include ../partials/comment %>
-          </form>
-          <% } else { %>
-            <p>Sign in to add a comment</p>
-            <a href="/login">Sign in</a>
-          <% } %>
+          <div class="card-body">
+            <% if(currentUser){ %>
+            <form action="/songs/<%= song._id %>/comments" method="POST">
+            <% include ../partials/comment %>
+            </form>
+            <% } else { %>
+              <p>Sign in to add a comment</p>
+              <a href="/login" class="btn btn-block btn-secondary">Sign in</a>
+            <% } %>
+          </div>
         </div>
       </div>
     </div>

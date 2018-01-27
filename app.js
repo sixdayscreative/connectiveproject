@@ -15,11 +15,12 @@ const express = require('express'),
 
 const commentRoutes = require('./routes/comments'),
       songRoutes = require('./routes/songs'),
+      songsetRoutes = require('./routes/songsets'),
       indexRoutes = require('./routes/index'),
       lyricsRoutes = require('./routes/lyrics');
 
-
-mongoose.connect(process.env.DATABASEURL, { useMongoClient: true});
+//mongoose.connect("mongodb://localhost/worshipdatabase", { useMongoClient: true });
+mongoose.connect(process.env.DATABASEURL, { useMongoClient: true });
 
 
 mongoose.Promise = global.Promise;
@@ -52,6 +53,7 @@ app.use(indexRoutes);
 app.use("/songs", songRoutes);
 app.use("/songs/:id/comments", commentRoutes);
 app.use("/songs/:id/songlyrics", lyricsRoutes);
+app.use("/share/", songsetRoutes);
 
 let PORT = process.env.PORT || 3000;
 

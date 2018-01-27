@@ -2,9 +2,11 @@
 <!-- <div class="form-group">
   <input class="form-control" type="text" name="comment[author]" placeholder="Name">
 </div> -->
-Posting a comment as <a href="#"><%= currentUser.username %></a> - Not you? <a href="/logout">Log out</a>
+<p class="small">
+  Posting a comment as <a href="#"><%= currentUser.username %></a> - Not you? <a href="/logout">Log out</a>
+</p>
 <div class="form-group">
-  <textarea class="form-control" name="comment[text]" cols="30" rows="10" placeholder="Your Comment"></textarea>
+  <textarea class="form-control" name="comment[text]" style="resize: none;" placeholder="Your Comment"></textarea>
 </div>
 <div class="form-group">
   <button class="btn btn-primary">Add Comment</button>

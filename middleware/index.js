@@ -19,6 +19,24 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
   }
 };
 
+middlewareObj.checkSongsetOwnership = function(req, res, next){
+  if(req.isAuthenticated()){
+    Songset.findById(req.params.comment_id, function(err, foundSet){
+      if(err){
+        res.redirect("back");
+      } else {
+        if(foundSet.author.id.equals(req.user._id)){
+          next();
+        } else {
+          res.redirect("back")
+        }
+      }
+    });
+  } else {
+    res.redirect("back");
+  }
+};
+
 middlewareObj.isLoggedIn = function(req, res, next){
   if(req.isAuthenticated()){
     return next();
