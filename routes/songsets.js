@@ -69,7 +69,7 @@ router.post("/new", middleware.isLoggedIn, function(req, res){
         })
 
       });
-      res.redirect("back")
+      res.redirect("/")
     }
   });
 

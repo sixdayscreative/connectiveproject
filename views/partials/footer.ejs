@@ -33,7 +33,7 @@
           <em class="song-author">${$(this).attr("data-artist")}</em>
           <a href="#0" class="remove-song" data-id="${$(this).attr("data-id")}"><i class="fa fa-times-circle-o"></i></a>
         </li>`;
-        $(`<input type="hidden" id="${$(this).attr("data-id")}" name="songset[songs]" value="${$(this).attr("data-id")}" />`).appendTo("#searchResult ul");
+        $(`<input type="hidden" id="${$(this).attr("data-id")}" name="songset[songs]" value="${$(this).attr("data-id")}" />`).insertAfter("#songset_description");
         $(addedSong).appendTo("#songList ul");
 
         $(this).closest("li").remove();

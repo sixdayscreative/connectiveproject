@@ -4,6 +4,7 @@ const express = require('express'),
       expressSanitizer = require('express-sanitizer'),
       mongoose = require('mongoose'),
       Song = require('./models/song'),
+      Songset = require('./models/songset'),
       Comment = require("./models/comment"),
       Lyrics = require("./models/lyrics"),
       User = require("./models/user")
@@ -20,7 +21,8 @@ const commentRoutes = require('./routes/comments'),
       lyricsRoutes = require('./routes/lyrics');
 
 //mongoose.connect("mongodb://localhost/worshipdatabase", { useMongoClient: true });
-mongoose.connect(process.env.DATABASEURL, { useMongoClient: true });
+mongoose.connect("mongodb://houston:sixdays@ds115198.mlab.com:15198/worshipdatabase", { useMongoClient: true });
+//mongoose.connect(process.env.DATABASEURL, { useMongoClient: true });
 
 
 mongoose.Promise = global.Promise;
@@ -54,6 +56,17 @@ app.use("/songs", songRoutes);
 app.use("/songs/:id/comments", commentRoutes);
 app.use("/songs/:id/songlyrics", lyricsRoutes);
 app.use("/share/", songsetRoutes);
+
+app.get("/clear", function(req, res){
+  Songset.remove({}, function(err){
+    if(err){
+      console.log(err);
+    } else {
+      res.redirect("/");
+    }
+  })
+});
+
 
 let PORT = process.env.PORT || 3000;
 

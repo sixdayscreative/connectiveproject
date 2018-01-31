@@ -1066,11 +1066,11 @@ let songList = [
 
 function seedDB(){
   //Remove all songs
-  Song.remove({}, function(err){
-    if(err){
-      console.log(err);
-    } else {
-      console.log("removed all songs");
+  // Song.remove({}, function(err){
+  //   if(err){
+  //     console.log(err);
+  //   } else {
+  //     console.log("removed all songs");
 
       //add new songs
       songList.forEach(function(song){
@@ -1088,9 +1088,9 @@ function seedDB(){
           }
         });
       });
-
-    }
-  });
+  // 
+  //   }
+  // });
 
 };
 
