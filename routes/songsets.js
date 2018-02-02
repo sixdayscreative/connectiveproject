@@ -67,7 +67,6 @@ router.post("/new", middleware.isLoggedIn, function(req, res){
             }
           }
         })
-
       });
       res.redirect("/")
     }
@@ -75,6 +74,18 @@ router.post("/new", middleware.isLoggedIn, function(req, res){
 
 });
 //============================
+
+//SONG SHOW =================
+router.get("/:id", function(req, res){
+  Songset.findById(req.params.id).populate("songs").exec(function(err, foundSet){
+    if(err){
+      console.log(err);
+    } else {
+      res.render("songsets/show", {songset: foundSet});
+    }
+  });
+});
+
 
 
 module.exports = router;

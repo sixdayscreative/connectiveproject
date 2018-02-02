@@ -1,0 +1,18 @@
+<% include ../partials/header %>
+<div class="container">
+  <h1 class="display-4"><%= songset.title %></h1>
+  <h3>By <%= songset.author.displayName %></h3>
+  <h4>About this set</h4>
+  <p><%= songset.description %></p>
+  <div>
+    <h4>Songs</h4>
+    <ol class="songset-list">
+      <% songset.songs.forEach(function(song){ %>
+        <li><a href="/songs/<%= song.id %>"><strong><%= song.title %></strong></a>
+          <em><%= song.author %></em>
+        </li>
+      <% }) %>
+    </ol>
+  </div>
+</div>
+<% include ../partials/footer %>
