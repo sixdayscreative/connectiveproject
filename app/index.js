@@ -57,57 +57,5 @@ document.addEventListener("DOMContentLoaded",function(){
 
   autosize(document.querySelectorAll('#lyrics textarea'));
 
-  function slideShowNav(){
-
-    let slides = document.querySelector(".slides");
-
-    window.addEventListener("keydown", function(e){
-      switch(e.which){
-        case 39:
-          nextSlide();
-          break;
-        case 37:
-          prevSlide();
-      }
-      console.log(e);
-    });
-
-    slides.addEventListener("click", function(){
-      nextSlide();
-    });
-
-    function prevSlide(){
-      let activeSlide = "";
-
-      activeSlide = slides.querySelector(".active");
-      if(activeSlide){
-        if(activeSlide.previousElementSibling){
-          activeSlide.previousElementSibling.classList.add("active");
-          activeSlide.classList.remove("active");
-        }
-      } else {
-        slides.querySelector(".slide:last-child").classList.add("active");
-      }
-    }
-
-    function nextSlide(){
-      let activeSlide = "";
-
-      activeSlide = slides.querySelector(".active");
-      if(activeSlide){
-        if(activeSlide.nextElementSibling){
-          activeSlide.nextElementSibling.classList.add("active");
-          activeSlide.classList.remove("active");
-        } else {
-          activeSlide.classList.remove("active");
-        }
-      } else {
-        slides.querySelector(".slide").classList.add("active");
-      }
-    }
-  }
-  if(document.querySelector("slides")){
-    slideShowNav();
-  }
 
 });

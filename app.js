@@ -18,11 +18,12 @@ const commentRoutes = require('./routes/comments'),
       songRoutes = require('./routes/songs'),
       songsetRoutes = require('./routes/songsets'),
       indexRoutes = require('./routes/index'),
+      scoreRoutes = require('./routes/score'),
       lyricsRoutes = require('./routes/lyrics');
 
-//mongoose.connect("mongodb://localhost/worshipdatabase", { useMongoClient: true });
+mongoose.connect("mongodb://localhost/worshipdatabase", { useMongoClient: true });
 //mongoose.connect("mongodb://houston:sixdays@ds115198.mlab.com:15198/worshipdatabase", { useMongoClient: true });
-mongoose.connect(process.env.DATABASEURL, { useMongoClient: true });
+//mongoose.connect(process.env.DATABASEURL, { useMongoClient: true });
 
 
 mongoose.Promise = global.Promise;
@@ -56,6 +57,7 @@ app.use("/songs", songRoutes);
 app.use("/songs/:id/comments", commentRoutes);
 app.use("/songs/:id/songlyrics", lyricsRoutes);
 app.use("/share/", songsetRoutes);
+app.use("/api/", scoreRoutes);
 
 app.get("/clear", function(req, res){
   Songset.remove({}, function(err){

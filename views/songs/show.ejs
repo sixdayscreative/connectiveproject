@@ -5,7 +5,7 @@
   </div>
 </div>
 
-  <main class="container">
+  <main class="container" id="song" data-songid="<%= song._id %>">
     <div class="row">
       <div class="col-md-7">
         <header class="song-header my-4">
@@ -15,10 +15,7 @@
               <h2 class="song-author"><%= song.author %></h2>
             </div>
             <div class="col-lg-4 text-right">
-              <!-- <form class="">
-                <input type="hidden" name="" value="<%= song.id %>"> -->
                 <a href="/share/new" class="btn btn-primary btn-sm">Add to new set <i class="fa fa-plus ml-2"></i></a>
-              <!-- </form> -->
             </div>
           </div>
         </header>
@@ -78,8 +75,22 @@
           <div class="row no-gutters">
             <div class="col-4 text-center">
               <div class="card-body score-card">
-                <strong class="display-4"><%= song.worshipRating %></strong>
+                <% if(song.worship){ %>
+                  <strong id="worship_score" class="display-4"><%= song.worship %></strong>
+                <% } else { %>
+                  <strong id="worship_score">Not yet rated</strong>
+                <% } %>
                 <h6>Worship</h6>
+                <% if(currentUser){ %>
+                <strong>Your Score:</strong>
+                <div id="worship" class="song-score">
+                  <div><a href="#" data-score="1">1</a></div>
+                  <div><a href="#" data-score="2">2</a></div>
+                  <div><a href="#" data-score="3">3</a></div>
+                  <div><a href="#" data-score="4">4</a></div>
+                  <div><a href="#" data-score="5">5</a></div>
+                </div>
+                <% } %>
                 <div class="score-info">
                   <strong>Worship Score</strong>
                   <p class="small">How does this song actively worship God?</p>
@@ -93,8 +104,21 @@
             </div>
             <div class="col-4 text-center border border-top-0 border-bottom-0 border-light">
                 <div class="card-body score-card">
-                  <strong class="display-4"><%= song.doctrineRating %></strong>
+                  <% if(song.teaching){ %>
+                    <strong id="teaching_score" class="display-4"><%= song.teaching %></strong>
+                  <% } else { %>
+                    <strong id="teaching_score">Not yet rated</strong>
+                  <% } %>
                   <h6>Teaching</h6>
+                  <% if(currentUser){ %>
+                  <ul id="teaching" class="song-score">
+                    <li><a href="#" data-score="1">1</a></li>
+                    <li><a href="#" data-score="2">2</a></li>
+                    <li><a href="#" data-score="3">3</a></li>
+                    <li><a href="#" data-score="4">4</a></li>
+                    <li><a href="#" data-score="5">5</a></li>
+                  </ul>
+                  <% } %>
                   <div class="score-info">
                     <strong>Teaching Score</strong>
                     <p class="small">How does this song teach about God?</p>
@@ -107,8 +131,24 @@
             </div>
             <div class="col-4 text-center">
                 <div class="card-body score-card">
-                  <strong class="display-4"><%= song.simplicityRating %></strong>
+
+                    <% if(song.simplicity){ %>
+                      <strong id="simplicity_score" class="display-4"><%= song.simplicity %></strong>
+                    <% } else { %>
+                      <strong id="simplicity_score">Not yet rated</strong>
+                    <% } %>
                   <h6>Simplicity</h6>
+
+                  <% if(currentUser){ %>
+                  <strong>Your Score:</strong>
+                  <div id="simplicity" class="song-score">
+                    <div><a href="#" data-score="1">1</a></div>
+                    <div><a href="#" data-score="2">2</a></div>
+                    <div><a href="#" data-score="3">3</a></div>
+                    <div><a href="#" data-score="4">4</a></div>
+                    <div><a href="#" data-score="5">5</a></div>
+                  </div>
+                  <% } %>
                   <div class="score-info">
                     <strong>Simplicity Score</strong>
                     <p class="small">How easy is this song to understand?</p>
@@ -225,3 +265,6 @@
   </main>
 </div>
 <% include ../partials/footer %>
+<% include ../partials/scripts %>
+<script src="/js/song-score.js"></script>
+<% include ../partials/closing %>

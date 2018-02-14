@@ -45,4 +45,27 @@ middlewareObj.isLoggedIn = function(req, res, next){
   res.redirect("/login");
 }
 
+middlewareObj.checkSongAuth = function(req, res, next){
+  if(req.isAuthenticated()){
+    Song.findById(req.params.id, function(err, foundSong){
+      if(err){
+        res.redirect("back");
+      } else {
+        let contributorTest = function(){
+            return foundSong.contributors.findIndex(element => element.id.equals(req.user.id));
+        };
+        if(contributorTest() === 0){
+          return next();
+        } else {
+          console.log("You need to be the only contributor dude");
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    console.log("You aint logged in mate");
+    res.redirect("back")
+  }
+}
+
 module.exports = middlewareObj;

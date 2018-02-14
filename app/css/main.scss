@@ -337,4 +337,16 @@ p a{
   right: 0;
 }}
 
+
+.song-score{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  li{
+    list-style-type: none;
+  }
+}
+
 @import "presentation";

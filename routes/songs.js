@@ -70,7 +70,7 @@ router.post("/", function(req, res){
 
 //SONG SHOW =================
 router.get("/:id", function(req, res){
-  Song.findById(req.params.id).populate("comments").populate("lyrics").exec(function(err, foundSong){
+  Song.findById(req.params.id).populate(["comments", "lyrics"]).exec(function(err, foundSong){
     if(err){
       console.log(err);
     } else {
@@ -129,7 +129,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
 });
 
 //SONG DESTROY ================
-router.delete("/:id", checkSongAuth, function(req, res){
+router.delete("/:id", middleware.checkSongAuth, function(req, res){
   if(req.isAuthenticated()){
     Song.findByIdAndRemove(req.params.id, function(err, foundSong){
       if(err){
@@ -150,29 +150,6 @@ function isLoggedIn(req, res, next){
     return next();
   }
   res.redirect("/login");
-}
-
-function checkSongAuth(req, res, next){
-  if(req.isAuthenticated()){
-    Song.findById(req.params.id, function(err, foundSong){
-      if(err){
-        res.redirect("back");
-      } else {
-        let contributorTest = function(){
-            return foundSong.contributors.findIndex(element => element.id.equals(req.user.id));
-        };
-        if(contributorTest() === 0){
-          return next();
-        } else {
-          console.log("You need to be the only contributor dude");
-          res.redirect("back");
-        }
-      }
-    });
-  } else {
-    console.log("You aint logged in mate");
-    res.redirect("back")
-  }
 }
 //============================
 
