@@ -17,8 +17,15 @@ const mongoose = require('mongoose'),
             value: String
           }
         ],
+        bio: String,
         username: String,
-        password: String
+        password: String,
+        sets: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Songset"
+        }
+      ]
       });
 
 UserSchema.plugin(passportLocalMongoose);

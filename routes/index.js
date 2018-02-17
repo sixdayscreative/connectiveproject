@@ -73,6 +73,18 @@ router.get("/profile/:id", function(req, res){
     if(err){
       console.log(err);
     } else {
+      Song.find( { "contributors": { id : {$in : foundUser._id } } }).populate("sets").exec(function(err, songs){
+        console.log(songs);
+      });
+      res.render("users/show", {user: foundUser})
+    }
+  })
+});
+router.get("/user/:username/", function(req, res){
+  User.findOne({username: req.params.username}).populate("sets").exec(function(err, foundUser){
+    if(err){
+      console.log(err);
+    } else {
       //Song.find().where("contributor")
       Song.find( { "contributors": { id : {$in : foundUser._id } } }, function(err, songs){
         console.log(songs);

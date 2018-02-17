@@ -4,6 +4,22 @@
     <div class="card-body">
       <h1 class="display-4"><%= user.name.givenName %> <%= user.name.familyName %></h1>
       <h3>Username: <%= user.username %></h3>
+
+      <% if(user.sets.length){ %>
+        <!-- No of sets: <%= user.sets.length %> -->
+        <div>
+          <h4>
+             Worship sets made by <%= user.name.givenName %>
+          </h4>
+        </div>
+        <ul class="list-group">
+          <% user.sets.forEach(function(set){ %>
+            <li class="list-group-item">
+              <a href="/share/<%= set.id %>"><strong><%= set.title %></strong></a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
     </div>
   </div>
 </div>

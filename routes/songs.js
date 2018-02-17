@@ -23,7 +23,7 @@ router.get("/", function(req, res){
       } else {
         res.render("songs/index", {songs : allSongs});
       }
-    }).sort({title: 1});
+    }).sort({worship: 1});
   }
 });
 

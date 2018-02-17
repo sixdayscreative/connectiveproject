@@ -5,6 +5,11 @@
   <h4>About this set</h4>
   <p><%= songset.description %></p>
   <div>
+    <div class="row">
+      <div class="col-6">
+        <!-- <a href="/share/<%= songset.id %>/lyrics">View all lyrics</a> -->
+      </div>
+    </div>
     <h4>Songs</h4>
     <ol class="songset-list">
       <% songset.songs.forEach(function(song){ %>

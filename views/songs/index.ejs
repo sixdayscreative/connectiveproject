@@ -6,6 +6,16 @@
     </div>
 
     <% include ../partials/search %>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort
+      </button>
+      <div class="dropdown-menu sort-menu" aria-labelledby="dropdownMenuButton">
+        <a id="sort_worship" class="dropdown-item" href="#">Worship</a>
+        <a id="sort_teaching" class="dropdown-item" href="#">Teaching</a>
+        <a id="sort_simplicity" class="dropdown-item" href="#">Simplicity</a>
+      </div>
+    </div>
     <div class="search-query p-3 text-center">
       <% if(typeof searchVal !== 'undefined' && songs.length){ %>
         <h3>Songs titles containing &lsquo;<%= searchVal %>&rsquo;:</h3>
@@ -14,7 +24,7 @@
         <a href="/songs/add" class="btn btn-primary btn-lg">Add this song <i class="fa fa-plus-circle ml-2"></i></a>
       <% } %>
     </div>
-    <div class="song-list">
+    <div class="song-list search-results">
       <ul class="list-group">
         <% songs.forEach(function(song){ %>
           <li class="list-group-item">
@@ -22,10 +32,38 @@
               <div class="col-7">
                 <a href="/songs/<%= song._id %>"><%= song.title %><em class="text-secondary" style="font-size: 0.75em; display: block;"><%= song.author %></em></a>
               </div>
+
               <div class="col-5 text-right">
-                <% if(song.lyrics.length){ %>
-                <a href="/songs/<%= song._id %>/present" class="btn btn-sm btn-outline-secondary text-secondary"><i class="fa fa-play mr-2"></i> Slideshow</a>
-                <% } %>
+                <div class="row">
+                  <div class="col-8">
+                    <div class="row text-center">
+                      <div class="col-4">Worship
+                        <% if(!song.worship){ %>
+                          No score
+                        <% } else { %>
+                          <%= song.worship %>
+                        <% } %>
+                      </div>
+                      <div class="col-4">Teaching
+                        <% if(!song.simplicity){ %>
+                          No score
+                        <% } else { %>
+                          <%= song.simplicity %>
+                        <% } %></div>
+                      <div class="col-4">Simplicity
+                        <% if(!song.simplicity){ %>
+                          No score
+                        <% } else { %>
+                          <%= song.simplicity %>
+                        <% } %></div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <% if(song.lyrics.length){ %>
+                    <a href="/songs/<%= song._id %>/present" class="btn btn-sm btn-outline-secondary text-secondary"><i class="fa fa-play mr-2"></i> Slideshow</a>
+                    <% } %>
+                  </div>
+                </div>
               </div>
             </div>
           </li>

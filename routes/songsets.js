@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const Song = require('../models/song');
 const Songset = require('../models/songset');
+const User = require('../models/user');
 const middleware = require('../middleware');
 
 //SETS INDEX ===================
@@ -39,12 +40,13 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 
 router.post("/new", middleware.isLoggedIn, function(req, res){
 
+  let userid = req.user.id;
   let newSet = {
     title: req.body.songset.title,
     description: req.body.songset.description,
     songs: [],
     author: {
-      id: req.user.id,
+      id: userid,
       displayName: req.user.name.givenName + " " + req.user.name.familyName
     }
   };
@@ -68,6 +70,10 @@ router.post("/new", middleware.isLoggedIn, function(req, res){
           }
         })
       });
+      User.findById(userid, function(err, foundUser){
+        foundUser.sets.push(newSongSet);
+        foundUser.save();
+      });
       res.redirect("/")
     }
   });
@@ -82,6 +88,35 @@ router.get("/:id", function(req, res){
       console.log(err);
     } else {
       res.render("songsets/show", {songset: foundSet});
+    }
+  });
+});
+
+router.get("/:id/lyrics", function(req, res){
+  Songset.findById(req.params.id).populate("songs").exec(function(err, foundSet){
+    if(err){
+      console.log(err);
+    } else {
+
+      let songSet = [];
+
+        // foundSet.songs.forEach((song) => {
+        //   let count = 0;
+        //   Song.findById(song._id).populate("lyrics").exec(function(err, foundSong){
+        //     if(err){
+        //
+        //     } else {
+        //       songSet.push(foundSong);
+        //       count++;
+        //       console.log(count, foundSet.songs.length);
+        //       if(count === foundSet.songs.length){
+        //         res.render("songsets/show-lyrics", {songset: songSet});
+        //       }
+        //     }
+        //   });
+        // });
+
+
     }
   });
 });

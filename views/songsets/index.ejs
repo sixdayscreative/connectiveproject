@@ -17,8 +17,6 @@
                 </div>
                 <div class="col-10">
                   <h3><a href="/share/<%= songset.id %>"><%= songset.title %></a></h3>
-
-
                   <p class="small mb-1"><a href="/profile/<%= songset.author.id %>"><%= songset.author.displayName %></a> shared a set</p>
                   <p class="mb-0"><a href="/songs/<%= songset.songs[0].id %>"><%= songset.songs[0].title %></a>
                     <% if(songset.songs.length-2 > 0){ %>

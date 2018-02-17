@@ -1,7 +1,7 @@
-<div class="card-body">
+<div class="pt-4 pb-2">
   <form action="/songs" method="GET">
   <div class="row justify-content-center">
-    <div class="col-7">
+    <div class="col-md-7 mb-3">
         <div class="input-group">
           <input type="search" name="search" class="form-control form-control-lg" placeholder="Find a song..." autocomplete="off" <% if(typeof searchVal !== 'undefined'){ %>value="<%= searchVal %>"<% } %>>
           <div class="input-group-append">
@@ -9,7 +9,7 @@
           </div>
         </div>
     </div>
-    <div class="col-2">
+    <div class="col-md-2">
         <a href="/songs/add" class="btn btn-primary btn-lg btn-block">Add song &nbsp;<i class="fa fa-plus-circle"></i></a>
     </div>
   </div>
