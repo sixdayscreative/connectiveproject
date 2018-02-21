@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+
+<h4><%= song.title %></h4>
+<div class="lyrics text-center">
+  <% song.lyrics.forEach(function(lyric){ %>
+
+    <% var lines = lyric.text.match(/^.*((rn|n|r)|$)/gm); %>
+    <h6>
+      <em><%= lyric.verseType %></em>
+    </h6>
+    <p><% lines.forEach(function(line){ %>
+        <span class="song-line"><%= line %></span>
+      <% }) %></p>
+
+
+  <% }) %>
+</div>
+
+<% include ../partials/footer %>
+<% include ../partials/scripts %>
+<% include ../partials/closing %>

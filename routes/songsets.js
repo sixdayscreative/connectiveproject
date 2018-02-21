@@ -18,7 +18,8 @@ router.get("/", function(req, res){
 });
 
 // - create
-router.get("/new", middleware.isLoggedIn, function(req, res){
+//router.get("/new", middleware.isLoggedIn, function(req, res){
+router.get("/new", function(req, res){
   Songset.find({}, function(err, songset){
     if(err){
       console.log(err);
@@ -92,34 +93,7 @@ router.get("/:id", function(req, res){
   });
 });
 
-router.get("/:id/lyrics", function(req, res){
-  Songset.findById(req.params.id).populate("songs").exec(function(err, foundSet){
-    if(err){
-      console.log(err);
-    } else {
 
-      let songSet = [];
-
-        // foundSet.songs.forEach((song) => {
-        //   let count = 0;
-        //   Song.findById(song._id).populate("lyrics").exec(function(err, foundSong){
-        //     if(err){
-        //
-        //     } else {
-        //       songSet.push(foundSong);
-        //       count++;
-        //       console.log(count, foundSet.songs.length);
-        //       if(count === foundSet.songs.length){
-        //         res.render("songsets/show-lyrics", {songset: songSet});
-        //       }
-        //     }
-        //   });
-        // });
-
-
-    }
-  });
-});
 
 
 

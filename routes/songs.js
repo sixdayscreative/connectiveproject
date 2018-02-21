@@ -23,7 +23,7 @@ router.get("/", function(req, res){
       } else {
         res.render("songs/index", {songs : allSongs});
       }
-    }).sort({worship: 1});
+    }).sort({worship: -1});
   }
 });
 
@@ -88,6 +88,17 @@ router.get("/:id/present", function(req, res){
     }
   });
 });
+
+router.get("/:id/lyrics", function(req, res){
+  Song.findById(req.params.id).populate("lyrics").exec(function(err, foundSong){
+    if(err){
+      console.log(err);
+    } else {
+      res.render("songs/show-lyrics.ejs", {song: foundSong});
+    }
+  });
+});
+
 
 //SONG EDIT ==================
 router.get("/:id/edit", middleware.isLoggedIn, function(req, res){

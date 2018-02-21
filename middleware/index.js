@@ -68,4 +68,9 @@ middlewareObj.checkSongAuth = function(req, res, next){
   }
 }
 
+middlewareObj.usernameToLowerCase = function(req, res, next){
+    req.body.username = req.body.username.toLowerCase();
+    next();
+}
+
 module.exports = middlewareObj;

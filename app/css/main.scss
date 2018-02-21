@@ -29,7 +29,7 @@ p a{
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
+    min-height: 30vh;
     @media(min-width: 960px){
       min-height: 50vh;
     }
@@ -65,10 +65,74 @@ p a{
   background-color: #E07320;
   border-color: #E07320;
 }
+.navbar{
+  padding: .75em;
+  background-color: #f4f4f4;
+}
 .navbar-brand{
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 0.875em;
+  font-size: 0.75em;
+  margin-top: -.25em;
+  margin-bottom: -.25em;
+  line-height: 1.15;
+  background-color: #eee;
+  color: #888;
+  padding: 0.75em;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.nav-user{
+
+  a {
+    padding: .5rem 1em;
+    display: block;
+    i{
+      vertical-align: middle;
+      margin-top: -0.125em;
+      margin-left: 0.25em;
+    }
+  }
+}
+@media(max-width: 991px){
+  .navbar-toggler{
+    display: block;
+    margin-left: auto;
+  }
+  .navbar-collapse{
+    background: #323232;
+    margin-left: -1rem;
+    margin-right: -1rem;
+
+   .navbar-nav{
+      .nav-item {
+        &:not(:last-child){
+          border-bottom: 1px solid #666;
+        }
+        .nav-link{
+          color: #fff;
+          padding: 0.75em 1em;
+        }
+        .btn{
+          display: block;
+          border: 0;
+          color: #fff;
+          border-radius: 0;
+          &.btn-outline-success{
+            background-color: #28a745;
+          }
+        }
+      }
+    }
+  }
+  .nav-user a {
+      color: #fff;
+      text-align: right;
+      display: block;
+      padding: 0.75em 1em;
+  }
 }
 
 .song-title{
@@ -92,22 +156,168 @@ p a{
   text-transform: uppercase;
   display: block;
 }
+.song-line{
+  display: block;
+}
 
-
+.songset-new .form-group{
+  padding:1em 1.5em 2em;
+  border-bottom: 2px dotted #ccc;
+}
 .search-container{
   position: relative;
   .search-result{
-    max-height: 30vh;
+    border: 2px solid $primaryColor;
+    margin-top: 1em;
+    border-radius: 0.5em;
+    min-height: 5em;
+    max-height: 20em;
+    padding: 0;
     overflow: auto;
-    position: absolute;
-    border-radius: 5px;
+    position: relative;
     &.active{
       border: 1px solid $primaryColor;
     }
+    &:empty{
+      border-color: #eee;
+      &::before{
+        content: 'Type something in the search box above';
+        font-weight: 300;
+        font-size: 1.25em;
+        text-align: center;
+        padding: 1em;
+        font-style: italic;
+        opacity: 0.5;
+      }
+    }
+    .list-group-item{
+      position: relative;
+      padding: 0;
+      width: 100%;
+      a{
+        height: 4em;
+        padding: 0.75em 0.75em 0.75em 3.35em;
+        display: block;
+        text-decoration: none;
+        text-transform: capitalize;
+        em{
+          display: block;
+          opacity: 0.5;
+          text-transform: uppercase;
+          font-size: 0.75em;
+          font-style: normal;
+          font-weight: normal;
+          white-space: nowrap;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        &:hover, &:focus{
+          background-color: $primaryColor;
+          color: #fff;
+          em{
+            opacity: .8;
+          }
+        }
+        &::before{
+          content: '+';
+          background: #eee;
+          border-radius: 50%;
+          text-align: center;
+          height: 2em;
+          left: 0.25em;
+          top: 50%;
+          margin-top: -1em;
+          font-weight: bold;
+          position: absolute;
+          display: block;
+          width: 2em;
+          line-height: 2;
+          font-size: 1.25em;
+          color: #777;
+        }
+      }
+      &:first-child{
+        border-top: 0;
+      }
+    }
   }
-  ul{
-    padding: 0;
+}
+
+.song-list{
+  .list-group{
+    border: 2px solid $primaryColor;
+    background: #f4f4f4;
+    &:empty{
+      border: 2px solid #eee;
+      &::before{
+        content: "You haven't added any songs to this set yet.";
+        display: block;
+        text-align: center;
+        font-weight: 300;
+        padding: 1em;
+      }
+    }
   }
+  .list-group-item{
+    padding-left: 1em;
+    position: relative;
+    padding-left: 3em;
+    padding-right: 3em;
+    height: 4em;
+    background: none;
+    &:nth-child(even){
+      background-color: rgba(255,255,255,0.3);
+    }
+    .song-title{
+      font-size: 1em;
+      display: block;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+    }
+    .song-author{
+      display: block;
+      font-size: 0.875em;
+      font-style: normal;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .songNum{
+      position: absolute;
+      color: #fff;
+      background-color: #999;
+      left: 0;
+      top: 0;
+      display: block;
+      line-height: 4;
+      width: 2em;
+      text-align: center;
+    }
+    .remove-song{
+      position: absolute;
+      right: 0.25em;
+      line-height: 1;
+      opacity: 0.35;
+      font-size: 2em;
+      top: 50%;
+      margin-top: -0.5em;
+      &:hover{
+        color: $primaryColor;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.search-input{
+  border-radius: 2em;
+  height: 3em;
+  padding-left: 1.5em;
 }
 
 .song-list a{
@@ -201,6 +411,9 @@ p a{
       }
     }
   }
+}
+textarea.form-control{
+  resize: none;
 }
 .verse-type-select{
   display: -webkit-flex;

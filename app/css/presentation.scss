@@ -1,8 +1,107 @@
+/* Slider */
+
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+.slick-list {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.dragging {
+        cursor: pointer;
+        cursor: hand;
+    }
+}
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+    position: relative;
+    left: 0;
+    top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+}
+.slick-slide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    [dir="rtl"] & {
+        float: right;
+    }
+    img {
+        display: block;
+    }
+    &.slick-loading img {
+        display: none;
+    }
+
+    display: none;
+
+    &.dragging img {
+        pointer-events: none;
+    }
+
+    .slick-initialized & {
+        display: block;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+
+    .slick-vertical & {
+        display: block;
+        height: auto;
+        border: 1px solid transparent;
+    }
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+
 .lyrics-presentation{
-  position: relative;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
   .slide-nav{
     position: absolute;
     z-index: 100;
@@ -27,11 +126,6 @@
     }
   }
   .slide{
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scale(0.6) translateY(30%);
     height: 100vh;
     width: 100%;
     text-align: center;
@@ -44,11 +138,6 @@
     justify-content: center;
     line-height: 1.611;
     text-shadow: 0 0.05em 0.15em #000, 0 0.05em 0.35em #000;
-    transition: transform 0.15s ease-out, opacity 0.15s ease-out;
-    &.active{
-      transform: scale(1);
-      opacity: 1;
-    }
     ul{
       padding: 0;
     }
@@ -59,6 +148,28 @@
       line-height: 1.611;
       text-shadow: 0 0.05em 0.15em #000, 0 0.05em 0.35em #000;
     }
+  }
+}
+
+.slick-arrow{
+  position: absolute;
+  top: 50%;
+  left: 0.25em;
+  background: none;
+  color: #fff;
+  font-size: 3em;
+  border: 0;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  padding: 0;
+  margin-top: -1.5em;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 100;
+  &.slick-next{
+    left: auto;
+    right: 0.25em;
   }
 }
 

@@ -11,7 +11,8 @@ $(document).ready(function(){
         $.getJSON('/share/new', function(data){
           $.each(data, function(key, value){
             if(value.title.search(expression) != -1 || value.author.search(expression) != -1){
-               $results.append('<li class="list-group-item"><a href="#" data-id="'+value._id+'" data-title="'+value.title+'" data-artist="'+value.author+'">'+value.title+', <em>'+value.author+'</em></a></li>');
+              var newTitle = value.title.replace(expression, "<strong>"+searchVal+"</strong>")
+               $results.append('<li class="list-group-item"><a href="#" data-id="'+value._id+'" data-title="'+value.title+'" data-artist="'+value.author+'"><span>'+newTitle+'</span><em>'+value.author+'</em></a></li>');
             }
           })
         });

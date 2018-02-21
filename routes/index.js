@@ -22,7 +22,7 @@ router.get("/register", function(req, res){
   res.render("register");
 });
 // - create user
-router.post("/register", function(req, res){
+router.post("/register", middleware.usernameToLowerCase, function(req, res){
   let newUser = new User({
     username: req.body.username,
     name: {
@@ -50,7 +50,7 @@ router.get("/login", function(req, res){
   res.render("login");
 })
 
-router.post("/login", passport.authenticate("local",
+router.post("/login", middleware.usernameToLowerCase, passport.authenticate("local",
   {
     successRedirect: "/songs",
     failureRedirect: "/login"
